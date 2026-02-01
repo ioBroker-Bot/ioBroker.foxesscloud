@@ -75,6 +75,10 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Improved: Use node: prefix for core modules and adapter timer wrappers for better compatibility
+- (skvarel) Fixed: Added .env.example to .gitignore
+
 ### 0.1.5 (2026-01-31)
 - (skvarel) Improved: Removed unnecessary devDependencies (eslint, should, dotenv) to follow ioBroker best practices.
 - (skvarel) Improved: Updated test scripts to use standard mocha command instead of hardcoded paths.

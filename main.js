@@ -5,8 +5,8 @@
  */
 
 const utils = require("@iobroker/adapter-core");
-const https = require("https");
-const crypto = require("crypto");
+const https = require("node:https");
+const crypto = require("node:crypto");
 
 class Foxesscloud extends utils.Adapter {
 	/**
@@ -59,7 +59,7 @@ class Foxesscloud extends utils.Adapter {
 
 		// Start periodic data retrieval
 		this.getData(); // First call immediately
-		this.updateInterval = setInterval(() => {
+		this.updateInterval = this.setInterval(() => {
 			this.getData();
 		}, intervalSeconds * 1000);
 	}
@@ -429,7 +429,7 @@ class Foxesscloud extends utils.Adapter {
 		try {
 			// Clear interval
 			if (this.updateInterval) {
-				clearInterval(this.updateInterval);
+				this.clearInterval(this.updateInterval);
 				this.updateInterval = null;
 			}
 
