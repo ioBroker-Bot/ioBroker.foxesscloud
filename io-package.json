@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "news": {
+      "0.1.6": {
+        "en": "Improved: Use node: prefix for core modules and adapter timer wrappers for better compatibility\nFixed: Added .env.example to .gitignore",
+        "de": "Verbessert: Einsatzknoten: Präfix für Kernmodule und Adapter-Timer-Wrapper für bessere Kompatibilität\nBehoben: Hinzugefügt .env.example zu .gitignore",
+        "ru": "Улучшение: Используйте узел: префикс для основных модулей и обертки таймера адаптера для лучшей совместимости\nИсправлено: Добавлено .env.example в .gitignore",
+        "pt": "Melhorado: Nó de uso: prefixo para módulos de núcleo e invólucros de temporizador para melhor compatibilidade\nCorrigido: Adicionado .env.exemplo ao .gitignore",
+        "nl": "Beter: Gebruik knooppunt: prefix voor kernmodules en adapter timerwikkelaars voor betere compatibiliteit\nVast: Toegevoegd .env.example aan .gitignore",
+        "fr": "Amélioration : Utiliser le nœud: préfixe pour les modules de base et les adaptateurs timer wrappers pour une meilleure compatibilité\nCorrection : Ajout de .env.exemple à .gitignore",
+        "it": "Migliorato: Nodo d'uso: prefisso per moduli di base e wrapper di timer di adattatore per una migliore compatibilità\nFisso: Aggiunto .env.example a .gitignore",
+        "es": "Mejorado: Nodo de uso: prefijo para módulos de núcleo y envoltorios de temporizador de adaptador para una mejor compatibilidad\nFijado: Añadido .env.example a .gitignore",
+        "pl": "Poprawa: Użyj węzła: przedrostek dla modułów rdzenia i zawijaczy zegara adaptera dla lepszej kompatybilności\nNaprawiono: dodano .env.example do .gitignore",
+        "uk": "Покращений: Використовуйте вузол: префікс для базових модулів і таймерів адаптера для кращої сумісності\nВиправлено: Додано .env.example до .gitignore",
+        "zh-cn": "改进: 使用节点:核心模块的前缀和适配器定时包,以更好地兼容\n固定:在.gitignore中添加.env.example"
+      },
       "0.1.5": {
         "en": "Improved: Removed unnecessary devDependencies (eslint, should, dotenv) to follow ioBroker best practices.\nImproved: Updated test scripts to use standard mocha command instead of hardcoded paths.\nImproved: Switched Node.js core module imports to node:xxx format where applicable.\nImproved: Enforced minimum and maximum interval limits for data polling to comply with Node.js timer restrictions.\nImproved: Code formatting and configuration files updated for consistency with ioBroker standards.\nFixed: Addressed review feedback for ioBroker latest repository inclusion.\nAdded: Full multi-language support for all state names (EN, DE, RU, PT, NL, FR, IT, ES, PL, UK, ZH-CN).",
         "de": "Verbessert: Entfernen unnötiger Abhängigkeiten (eslint, sollte, dotenv) ioBroker Best Practices folgen.\nVerbessert: Aktualisierte Testskripte, um Standard-Mocha-Befehl anstelle von hardcoded Pfaden zu verwenden.\nVerbessert: Das Switched Node.js-Kernmodul importiert gegebenenfalls in das Node:xxx-Format.\nVerbessert: Verstärkte Mindest- und maximale Intervallgrenzen für die Datenbefragung, um Node.js-Timer-Einschränkungen einzuhalten.\nVerbessert: Code-Formatierung und Konfigurationsdateien aktualisiert für die Konsistenz mit ioBroker Standards.\nBehoben: Angesprochenes Review-Feedback für ioBroker neueste Repository-Inklusion.\nHinzugefügt: Vollständige mehrsprachige Unterstützung für alle Staatsnamen (EN, DE, RU, PT, NL, FR, IT, ES, PL, UK, ZH-CN).",
