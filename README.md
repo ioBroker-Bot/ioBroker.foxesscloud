@@ -75,6 +75,9 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Fixed: Issue detected by repository checker.
+
 ### 0.1.6 (2026-02-01)
 - (skvarel) Improved: Use node: prefix for core modules and adapter timer wrappers for better compatibility
 - (skvarel) Fixed: Added .env.example to .gitignore
