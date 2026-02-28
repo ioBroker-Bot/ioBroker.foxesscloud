@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "news": {
+      "0.1.7": {
+        "en": "Fixed: Issue detected by repository checker.",
+        "de": "Behoben: Ausgestellt durch Repository Checker.",
+        "ru": "Исправлено: проблема, обнаруженная проверкой хранилища.",
+        "pt": "Corrigido: Problema detectado pelo verificador de repositório.",
+        "nl": "Vast: Uitgave gedetecteerd door repository checker.",
+        "fr": "Correction : problème détecté par le vérificateur du dépôt.",
+        "it": "Risolto: Problema rilevato da repository checker.",
+        "es": "Corregido: Problema detectado por repositorio.",
+        "pl": "Naprawiono: Wydanie wykryte przez sprawdzacz repozytorium.",
+        "uk": "Виправлено: Виявлено репозиторійним чекером.",
+        "zh-cn": "固定:由仓库检查器检测到的问题."
+      },
       "0.1.6": {
         "en": "Improved: Use node: prefix for core modules and adapter timer wrappers for better compatibility\nFixed: Added .env.example to .gitignore",
         "de": "Verbessert: Einsatzknoten: Präfix für Kernmodule und Adapter-Timer-Wrapper für bessere Kompatibilität\nBehoben: Hinzugefügt .env.example zu .gitignore",
