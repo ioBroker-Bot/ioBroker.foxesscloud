@@ -4,15 +4,14 @@
       - package-ecosystem: github-actions
         directory: "/"
         schedule:
-          interval: monthly
-          time: "04:00"
-          timezone: Europe/Berlin
-    
-      - package-ecosystem: npm
-        directory: "/"
-        schedule:
-          interval: monthly
-          time: "04:00"
-          timezone: Europe/Berlin
-        open-pull-requests-limit: 5
-        versioning-strategy: increase
+      # Run at 04:00 on day 5 of every month
+      cron: "0 3 5 * *"
+      timezone: Europe/Berlin
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      # Run at 04:00 on day 12 of every month
+      cron: "0 3 12 * *"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 15
