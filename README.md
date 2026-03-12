@@ -75,7 +75,7 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.8 (2026-03-12)
 - (skvarel) Fixed: Issue detected by repository checker.
 
 ### 0.1.7 (2026-02-28)
@@ -96,10 +96,6 @@ The adapter creates the following data points:
 
 ### 0.1.2 (2026-01-23)
 - (skvarel) Fix .vscode/settings.json
-
-### 0.1.1 (2026-01-23)
-- (skvarel) Remove mocha from devDependencies (included in @iobroker/testing)
-- (skvarel) Add .vscode/settings.json with JSON schema definitions
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
