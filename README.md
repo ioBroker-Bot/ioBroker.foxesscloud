@@ -75,7 +75,7 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.9 (2026-03-13)
 - (skvarel) Improved: Enabled Node.js 24 support in GitHub Actions workflows.
 - (skvarel) Fixed: Issue detected by repository checker.
 
@@ -97,9 +97,6 @@ The adapter creates the following data points:
 - (skvarel) Improved: Code formatting and configuration files updated for consistency with ioBroker standards.
 - (skvarel) Fixed: Addressed review feedback for ioBroker latest repository inclusion.
 - (skvarel) Added: Full multi-language support for all state names (EN, DE, RU, PT, NL, FR, IT, ES, PL, UK, ZH-CN).
-
-### 0.1.2 (2026-01-23)
-- (skvarel) Fix .vscode/settings.json
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)

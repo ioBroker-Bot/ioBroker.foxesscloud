@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "news": {
+      "0.1.9": {
+        "en": "Improved: Enabled Node.js 24 support in GitHub Actions workflows.\nFixed: Issue detected by repository checker.",
+        "de": "Verbessert: Aktivierte Node.js 24 Unterstützung bei GitHub Actions Workflows.\nBehoben: Ausgestellt durch Repository Checker.",
+        "ru": "Улучшено: поддержка Node.js 24 в рабочих процессах GitHub Actions.\nИсправлено: проблема, обнаруженная проверкой хранилища.",
+        "pt": "Melhorado: Suporte ao Node.js 24 habilitado em fluxos de trabalho do GitHub Actions.\nCorrigido: Problema detectado pelo verificador de repositório.",
+        "nl": "Verbeterd: Ingeschakeld Node.js 24 ondersteuning in GitHub Acties workflows.\nVast: Uitgave gedetecteerd door repository checker.",
+        "fr": "Amélioration : Prise en charge de Node.js 24 activée dans les workflows GitHub Actions.\nCorrection : problème détecté par le vérificateur du dépôt.",
+        "it": "Migliorato: Abilitato il supporto Node.js 24 nei flussi di lavoro GitHub Actions.\nRisolto: Problema rilevato da repository checker.",
+        "es": "Mejorado: Activado Node.js 24 soporte en GitHub Actions flujos de trabajo.\nCorregido: Problema detectado por repositorio.",
+        "pl": "Ulepszone: Włączone wsparcie Node.js 24 w operacjach GitHub Actions.\nNaprawiono: Wydanie wykryte przez sprawdzacz repozytorium.",
+        "uk": "Покращений: Увімкнути підтримку Node.js 24 у робочому середовищі GitHub Actions.\nВиправлено: Виявлено репозиторійним чекером.",
+        "zh-cn": "改进:启用GitHub Actions工作流程中的节点.js 24支持.\n固定:由仓库检查器检测到的问题."
+      },
       "0.1.8": {
         "en": "Fixed: Issue detected by repository checker.",
         "de": "Behoben: Ausgestellt durch Repository Checker.",
@@ -80,19 +93,6 @@
         "pl": "Usuń mocha z devDependendences (zawarte w @ iobroker / testing)\nDodaj .vscode / settings.json z definicjami schematu JSON",
         "uk": "Видалити моха від devDepencies (входить в @iobroker/testing)\nДодати .vscode/settings.json з визначеннями schema JSON",
         "zh-cn": "从 deddependents 中删除摩查( 包含在 @ iobroduc/ testing 中)\n添加 .vscode/ settings.json 与 JSON 计划定义"
-      },
-      "0.1.0": {
-        "en": "Initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Первоначальный выпуск",
-        "pt": "Lançamento inicial",
-        "nl": "Eerste release",
-        "fr": "Version initiale",
-        "it": "Rilascio iniziale",
-        "es": "Lanzamiento inicial",
-        "pl": "Pierwsze wydanie",
-        "uk": "Початковий випуск",
-        "zh-cn": "初次发布"
       }
     },
     "titleLang": {
