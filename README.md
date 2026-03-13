@@ -75,6 +75,10 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Improved: Enabled Node.js 24 support in GitHub Actions workflows.
+- (skvarel) Fixed: Issue detected by repository checker.
+
 ### 0.1.8 (2026-03-12)
 - (skvarel) Fixed: Issue detected by repository checker.
 

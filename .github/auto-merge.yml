@@ -1,0 +1,21 @@
+# Configuration for automatic merging of dependabot PRs
+# Learn more: https://github.com/ridedott/merge-me-action
+
+# Automatically merge patch and minor updates if tests pass
+- match:
+    dependency_type: development
+    update_type: "semver:minor"
+  merge:
+    method: squash
+
+- match:
+    dependency_type: development
+    update_type: "semver:patch"
+  merge:
+    method: squash
+
+- match:
+    dependency_type: production
+    update_type: "semver:patch"
+  merge:
+    method: squash
