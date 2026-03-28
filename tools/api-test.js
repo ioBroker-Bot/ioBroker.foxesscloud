@@ -7,8 +7,8 @@
  */
 
 // require('dotenv').config(); // Entfernt, da dotenv nicht mehr installiert ist
-const https = require("https");
-const crypto = require("crypto");
+const https = require("node:https");
+const crypto = require("node:crypto");
 
 // Load credentials from environment variables
 const token = process.env.FOXESS_TOKEN;
