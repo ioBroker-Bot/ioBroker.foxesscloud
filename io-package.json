@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "Updated: Minimum Node.js version requirement to >=22",
+        "de": "Aktualisiert: Mindestanforderungen an Node.js-Versionen an >=22",
+        "ru": "Минимальное требование Node.js к версии >=22",
+        "pt": "Atualizado: exigência mínima de versão Node.js para >=22",
+        "nl": "Voor de toepassing van deze onderverdeling wordt verstaan onder:",
+        "fr": "Mise à jour: Exigences minimales de la version Node.js à >=22",
+        "it": "Aggiornato: requisito minimo della versione Node.js a >=22",
+        "es": "Actualizado: Mínimo Node.js requisito de la versión para >=22",
+        "pl": "Aktualizacja: Minimalny wymóg wersji Node.js do > = 22",
+        "uk": "Оновлено: Мінімальна вимога версії Node.js до >=22",
+        "zh-cn": "更新:最小节点.js版本要求为QQ22"
+      },
       "0.1.9": {
         "en": "Improved: Enabled Node.js 24 support in GitHub Actions workflows.\nFixed: Issue detected by repository checker.",
         "de": "Verbessert: Aktivierte Node.js 24 Unterstützung bei GitHub Actions Workflows.\nBehoben: Ausgestellt durch Repository Checker.",
@@ -80,19 +93,6 @@
         "pl": "Fix .vscode / settings.json",
         "uk": "Виправлення .vscode/settings.json",
         "zh-cn": "修复.vscode/设置.json"
-      },
-      "0.1.1": {
-        "en": "Remove mocha from devDependencies (included in @iobroker/testing)\nAdd .vscode/settings.json with JSON schema definitions",
-        "de": "Mocha von devDependencies entfernen (in @iobroker/testing enthalten)\nFügen Sie .vscode/settings.json mit JSON Schemadefinitionen hinzu",
-        "ru": "Удалить mocha из devDependencies (включено в @iobroker/testing)\nДобавить .vscode/settings.json с определениями схемы JSON",
-        "pt": "Remover o mocha do devDependências (incluído em @ iobroker/testing)\nAdicionar .vscode/settings.json com definições de esquema JSON",
-        "nl": "Verwijder mokka uit devDependencies (inbegrepen in @iobroker/testing)\n.vscode/instellingen.json toevoegen met JSON schema definities",
-        "fr": "Supprimer le moka de devDependences (inclus dans @iobroker/test)\nAjouter .vscode/settings.json avec les définitions de schéma JSON",
-        "it": "Rimuovi mocha da devDependencies (incluso in @iobroker/testing)\nAggiungi .vscode/settings.json con le definizioni dello schema JSON",
-        "es": "Quitar mocha de devDependencies (incluido en @iobroker/testing)\nAñadir .vscode/settings.json con definiciones de esquema JSON",
-        "pl": "Usuń mocha z devDependendences (zawarte w @ iobroker / testing)\nDodaj .vscode / settings.json z definicjami schematu JSON",
-        "uk": "Видалити моха від devDepencies (входить в @iobroker/testing)\nДодати .vscode/settings.json з визначеннями schema JSON",
-        "zh-cn": "从 deddependents 中删除摩查( 包含在 @ iobroduc/ testing 中)\n添加 .vscode/ settings.json 与 JSON 计划定义"
       }
     },
     "titleLang": {
