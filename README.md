@@ -75,6 +75,9 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Updated: Minimum Node.js version requirement to >=22
+
 ### 0.1.9 (2026-03-13)
 - (skvarel) Improved: Enabled Node.js 24 support in GitHub Actions workflows.
 - (skvarel) Fixed: Issue detected by repository checker.

@@ -61,9 +61,11 @@ const req = https.request(options, res => {
 			// Show available data points
 			if (json.result && json.result[0] && json.result[0].datas) {
 				console.log("\n📊 Available data points:\n");
-				json.result[0].datas.forEach(d => {
-					console.log(`   ${d.variable}: ${d.value} ${d.unit || ""} (${d.name})`);
-				});
+				json.result[0].datas.forEach(
+					/** @param {any} d - Data point object */ d => {
+						console.log(`   ${d.variable}: ${d.value} ${d.unit || ""} (${d.name})`);
+					},
+				);
 			}
 		} catch {
 			console.error("❌ Failed to parse response:", data);
