@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "Removed: React and mui",
+        "de": "Entfernt: React und mui",
+        "ru": "Оригинальное название: React and Mui",
+        "pt": "Removido: Reagir e mui",
+        "nl": "Verwijderd: Reageren en mui",
+        "fr": "Supprimé: Réagir et mui",
+        "it": "Rimuovi: React e mui",
+        "es": "Retirado: Reaccion y mui",
+        "pl": "Usunięty: React and mui",
+        "uk": "Вилучено: React та mui",
+        "zh-cn": "删除: 反应和 mui"
+      },
       "0.2.0": {
         "en": "Updated: Minimum Node.js version requirement to >=22",
         "de": "Aktualisiert: Mindestanforderungen an Node.js-Versionen an >=22",
@@ -80,19 +93,6 @@
         "pl": "Ulepszone: Usunięto niepotrzebne devDevendencements (eslint, should, dotenv) do naśladowania najlepszych praktyk joBroker.\nPoprawa: Zaktualizowano skrypty testowe, aby używać standardowego polecenia mocha zamiast zaszyfrowanych ścieżek.\nUlepszony: Przełączony moduł rdzeniowy Node.js importuje do węzła: format xxx w stosownych przypadkach.\nUlepszone: Wymuszone minimalne i maksymalne limity odstępów dla sondaży danych w celu przestrzegania ograniczeń czasowych Node.js.\nPoprawa: Formatowanie kodów i aktualizacja plików konfiguracyjnych w celu zapewnienia zgodności ze standardami jOBrokera.\nFixed: Addressed review feeds for jOBroker last repository inclusion.\nDodano: Pełne wielojęzyczne wsparcie dla wszystkich nazw państwowych (EN, DE, RU, PT, NL, FR, IT, ES, PL, UK, ZH- CN).",
         "uk": "Удосконалено: Вилучено непотрібні депенденції (еслінт, слід, дотенв) для дотримання кращих практик ioBroker.\nПокращений: Оновлено тестові скрипти для використання стандартного моха замість жорсткихкодованих шляхів.\nПокращений: Switched Node.js основний модуль імпорту в вузол: хх-формат, де це можливо.\nПокращено: Зміцнюйте мінімальні та максимальні інтервали інтервалів інтервалів даних для дотримання обмежень таймера Node.js.\nПокращений: Форматування коду та налаштування файлів, що оновлюються для консистенції із стандартами ioBroker.\nВиправлено: Зворотній зв'язок з адресним оглядом для ioBroker останнього репозиторійного включення.\nДодано: Повна багатомовна підтримка всіх державних імен (EN, DE, RU, PT, NL, FR, IT, ES, PL, UK, ZH-CN).",
         "zh-cn": "改进:取消不必要的依赖性(slint,should, dotenv),以遵循ioBroker最佳做法.\n改进: 更新测试脚本以使用标准mocha命令而不是硬编码路径.\n改进:将Node.js核心模块导入到节点:xxxx格式.\n改进:执行数据投票的最低和最高间隔限制,以遵守Node.js定时器限制.\n改进: 代码格式化和配置文件更新,以符合ioBroker标准.\n固定( Fix): 为 ioBroker 最新寄存器的包含处理审查反馈 .\n添加:所有州名(EN,DE,RU,PT,NL,FR,IT,ES,PL,UK,ZH-CN)的完全多语种支持."
-      },
-      "0.1.2": {
-        "en": "Fix .vscode/settings.json",
-        "de": "Fix .vscode/settings.json",
-        "ru": "Исправить .vscode/settings.json",
-        "pt": "Corrigir .vscode/settings.json",
-        "nl": ".vscode/instellingen.json herstellen",
-        "fr": "Correction .vscode/settings.json",
-        "it": "Fissare .vscode/settings.json",
-        "es": "Fijar .vscode/settings.json",
-        "pl": "Fix .vscode / settings.json",
-        "uk": "Виправлення .vscode/settings.json",
-        "zh-cn": "修复.vscode/设置.json"
       }
     },
     "titleLang": {
