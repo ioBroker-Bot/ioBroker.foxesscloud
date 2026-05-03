@@ -91,6 +91,8 @@ The adapter creates the following data points:
 ### 0.1.7 (2026-02-28)
 - (skvarel) Fixed: Issue detected by repository checker.
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
 
