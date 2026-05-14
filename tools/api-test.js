@@ -62,7 +62,7 @@ const req = https.request(options, res => {
 			if (json.result && json.result[0] && json.result[0].datas) {
 				console.log("\n📊 Available data points:\n");
 				json.result[0].datas.forEach(
-					/** @param {any} d - Data point object */ d => {
+					/** @param {{ variable: string, value: unknown, unit?: string, name: string }} d - Data point object */ d => {
 						console.log(`   ${d.variable}: ${d.value} ${d.unit || ""} (${d.name})`);
 					},
 				);

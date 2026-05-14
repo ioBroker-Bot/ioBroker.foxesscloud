@@ -75,6 +75,9 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Fixed some lint errors/warnings
+
 ### 0.2.1 (2026-04-13)
 - (skvarel) Removed: React and mui
 
