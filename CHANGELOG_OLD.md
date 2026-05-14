@@ -1,4 +1,7 @@
 # Older changes
+## 0.1.7 (2026-02-28)
+- (skvarel) Fixed: Issue detected by repository checker.
+
 ## 0.1.6 (2026-02-01)
 - (skvarel) Improved: Use node: prefix for core modules and adapter timer wrappers for better compatibility
 - (skvarel) Fixed: Added .env.example to .gitignore
