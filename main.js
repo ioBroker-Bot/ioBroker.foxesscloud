@@ -21,6 +21,8 @@ class Foxesscloud extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 
 		this.updateInterval = null;
+		this.systemLanguage = "en";
+		this.lastTempWarningLevel = 0;
 	}
 
 	/**
@@ -41,6 +43,17 @@ class Foxesscloud extends utils.Adapter {
 		if (!this.config.sn) {
 			this.log.error("Serial Number (SN) is not configured!");
 			return;
+		}
+
+		try {
+			const systemConfig = await this.getForeignObjectAsync("system.config");
+			if (systemConfig?.common?.language) {
+				this.systemLanguage = systemConfig.common.language;
+			}
+		} catch (error) {
+			this.log.debug(
+				`Could not read system language from system.config: ${error instanceof Error ? error.message : String(error)}`,
+			);
 		}
 
 		// Create states
@@ -429,6 +442,37 @@ class Foxesscloud extends utils.Adapter {
 						if (invTemperatureData && invTemperatureData.value !== undefined) {
 							const invTemperature = parseFloat(invTemperatureData.value.toFixed(1));
 							this.setState("invTemperature", invTemperature, true);
+
+							if (invTemperature >= 80) {
+								if (this.lastTempWarningLevel !== 80) {
+									if (this.systemLanguage === "de") {
+										this.log.warn(
+											`Achtung, Wechselrichtertemperatur zu hoch: ${invTemperature.toFixed(1)} °C.`,
+										);
+									} else {
+										this.log.warn(
+											`Warning, inverter temperature is too high: ${invTemperature.toFixed(1)} °C.`,
+										);
+									}
+								}
+								this.lastTempWarningLevel = 80;
+							} else if (invTemperature >= 65) {
+								if (this.lastTempWarningLevel === 0) {
+									if (this.systemLanguage === "de") {
+										this.log.warn(
+											`Kritisch, bitte die Wechselrichtertemperatur im Blick behalten: ${invTemperature.toFixed(1)} °C.`,
+										);
+									} else {
+										this.log.warn(
+											`Critical, please keep an eye on inverter temperature: ${invTemperature.toFixed(1)} °C.`,
+										);
+									}
+								}
+								this.lastTempWarningLevel = 65;
+							} else if (invTemperature < 63) {
+								// Reset warning level below threshold minus hysteresis to avoid log spam.
+								this.lastTempWarningLevel = 0;
+							}
 						}
 
 						this.log.debug("Data successfully updated");
