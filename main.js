@@ -425,6 +425,7 @@ class Foxesscloud extends utils.Adapter {
 					"batChargePower",
 					"batDischargePower",
 					"batTemperature_1",
+					"batTemperature",
 					"invTemperation",
 					"runningState",
 				],
@@ -592,8 +593,13 @@ class Foxesscloud extends utils.Adapter {
 							this.setState("pv2Power", pv2, true);
 						}
 
-						const batTemperatureData = getDataPointByVariable("batTemperature_1");
-						if (batTemperatureData && batTemperatureData.value !== undefined) {
+						const batTemperatureData =
+							getDataPointByVariable("batTemperature_1") || getDataPointByVariable("batTemperature");
+						if (
+							batTemperatureData &&
+							batTemperatureData.value !== undefined &&
+							batTemperatureData.value !== null
+						) {
 							const batTemp = parseFloat(batTemperatureData.value.toFixed(1));
 							this.setState("batTemperature", batTemp, true);
 						}
