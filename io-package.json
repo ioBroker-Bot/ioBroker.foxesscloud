@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior",
+        "de": "Anpassung der Echtzeit-API-Pasing, um den Typcheck grün zu halten, ohne das Laufzeitverhalten zu ändern",
+        "ru": "Скорректированный анализ API в реальном времени, чтобы сохранить зеленую проверку типа без изменения поведения во время выполнения",
+        "pt": "Processamento de API em tempo real ajustado para manter o typecheck verde sem alterar o comportamento em tempo de execução",
+        "nl": "Aangepast real-time API ontleden om de typecheck groen te houden zonder verandering van runtime gedrag",
+        "fr": "Ajusté l'analyse de l'API en temps réel pour garder le typecheck vert sans modifier le comportement d'exécution",
+        "it": "Parasing API in tempo reale regolato per mantenere il tipocheck verde senza cambiare il comportamento runtime",
+        "es": "Ajuste de API en tiempo real paresing para mantener el tipocheck verde sin cambiar el comportamiento de tiempo de ejecución",
+        "pl": "Skorygowana real- time API parsing zachować zieleń typechell bez zmiany zachowania runtime",
+        "uk": "Регульований в режимі реального часу API, щоб зберегти вигляд зелений без зміни поведінки",
+        "zh-cn": "调整实时 API 解析以保持类型检查绿色而不改变运行时间行为"
+      },
       "0.3.0": {
         "en": "Added inverter internal temperature datapoint in °C",
         "de": "Inverter interner Temperaturdatenpunkt in °C hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Ulepszone: Włączone wsparcie Node.js 24 w operacjach GitHub Actions.\nNaprawiono: Wydanie wykryte przez sprawdzacz repozytorium.",
         "uk": "Покращений: Увімкнути підтримку Node.js 24 у робочому середовищі GitHub Actions.\nВиправлено: Виявлено репозиторійним чекером.",
         "zh-cn": "改进:启用GitHub Actions工作流程中的节点.js 24支持.\n固定:由仓库检查器检测到的问题."
-      },
-      "0.1.8": {
-        "en": "Fixed: Issue detected by repository checker.",
-        "de": "Behoben: Ausgestellt durch Repository Checker.",
-        "ru": "Исправлено: проблема, обнаруженная проверкой хранилища.",
-        "pt": "Corrigido: Problema detectado pelo verificador de repositório.",
-        "nl": "Vast: Uitgave gedetecteerd door repository checker.",
-        "fr": "Correction : problème détecté par le vérificateur du dépôt.",
-        "it": "Risolto: Problema rilevato da repository checker.",
-        "es": "Corregido: Problema detectado por repositorio.",
-        "pl": "Naprawiono: Wydanie wykryte przez sprawdzacz repozytorium.",
-        "uk": "Виправлено: Виявлено репозиторійним чекером.",
-        "zh-cn": "固定:由仓库检查器检测到的问题."
       }
     },
     "titleLang": {

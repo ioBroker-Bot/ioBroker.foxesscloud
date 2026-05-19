@@ -79,7 +79,7 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.3.1 (2026-05-19)
 - (skvarel) Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior
 
 ### 0.3.0 (2026-05-19)
@@ -93,9 +93,6 @@ The adapter creates the following data points:
 
 ### 0.2.1 (2026-04-13)
 - (skvarel) Removed: React and mui
-
-### 0.2.0 (2026-04-06)
-- (skvarel) Updated: Minimum Node.js version requirement to >=22
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
