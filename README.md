@@ -14,7 +14,7 @@
 
 ## What this adapter does
 
-Retrieves real-time data from FoxESS Cloud API for solar inverters (e.g., used in Enpal systems) and exposes ioBroker states for home automation:
+Retrieves data from FoxESS Cloud API for solar inverters (e.g., used in Enpal systems) and exposes ioBroker states for home automation:
 
 - Monitor solar power production in real-time
 - Track battery state of charge (SoC)
