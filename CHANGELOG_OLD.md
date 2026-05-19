@@ -1,4 +1,7 @@
 # Older changes
+## 0.2.1 (2026-04-13)
+- (skvarel) Removed: React and mui
+
 ## 0.2.0 (2026-04-06)
 - (skvarel) Updated: Minimum Node.js version requirement to >=22
 

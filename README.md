@@ -84,7 +84,7 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.4.0 (2026-05-19)
 - (skvarel) Added PV string 1 and string 2 power datapoints (pv1Power, pv2Power)
 - (skvarel) Added battery temperature datapoint (batTemperature)
 - (skvarel) Added inverter running state datapoint (runningState)
@@ -100,9 +100,6 @@ The adapter creates the following data points:
 
 ### 0.2.2 (2026-05-14)
 - (skvarel) Fixed some lint errors/warnings
-
-### 0.2.1 (2026-04-13)
-- (skvarel) Removed: React and mui
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
