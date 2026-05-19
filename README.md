@@ -44,6 +44,8 @@ Retrieves real-time data from FoxESS Cloud API for solar inverters (e.g., used i
 The adapter creates the following data points:
 
 - `foxesscloud.0.pvPower` - PV Power (kW)
+- `foxesscloud.0.pv1Power` - PV String 1 Power (kW)
+- `foxesscloud.0.pv2Power` - PV String 2 Power (kW)
 - `foxesscloud.0.generationPower` - Generation Power/Output (kW)
 - `foxesscloud.0.soc` - Battery State of Charge (%)
 - `foxesscloud.0.load` - Load Power (kW)
@@ -51,6 +53,9 @@ The adapter creates the following data points:
 - `foxesscloud.0.feedinPower` - Feed-in/Export Power (kW)
 - `foxesscloud.0.batCharge` - Battery Charge Power (kW)
 - `foxesscloud.0.batDischarge` - Battery Discharge Power (kW)
+- `foxesscloud.0.batTemperature` - Battery Temperature (°C)
+- `foxesscloud.0.invTemperature` - Inverter Internal Temperature (°C)
+- `foxesscloud.0.runningState` - Inverter Running State
 - `foxesscloud.0.info.connection` - Connection status
 
 ## Installation
@@ -79,6 +84,11 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Added PV string 1 and string 2 power datapoints (pv1Power, pv2Power)
+- (skvarel) Added battery temperature datapoint (batTemperature)
+- (skvarel) Added inverter running state datapoint (runningState)
+
 ### 0.3.1 (2026-05-19)
 - (skvarel) Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior
 

@@ -305,6 +305,105 @@ class Foxesscloud extends utils.Adapter {
 			},
 			native: {},
 		});
+
+		await this.setObjectNotExistsAsync("runningState", {
+			type: "state",
+			common: {
+				name: {
+					en: "Running State",
+					de: "Betriebszustand",
+					ru: "Рабочее состояние",
+					pt: "Estado de funcionamento",
+					nl: "Bedrijfsstatus",
+					fr: "État de fonctionnement",
+					it: "Stato operativo",
+					es: "Estado de funcionamiento",
+					pl: "Stan pracy",
+					uk: "Робочий стан",
+					"zh-cn": "运行状态",
+				},
+				type: "string",
+				role: "text",
+				read: true,
+				write: false,
+			},
+			native: {},
+		});
+
+		await this.setObjectNotExistsAsync("batTemperature", {
+			type: "state",
+			common: {
+				name: {
+					en: "Battery Temperature",
+					de: "Batterietemperatur",
+					ru: "Температура батареи",
+					pt: "Temperatura da bateria",
+					nl: "Batterijtemperatuur",
+					fr: "Température de la batterie",
+					it: "Temperatura della batteria",
+					es: "Temperatura de la batería",
+					pl: "Temperatura akumulatora",
+					uk: "Температура акумулятора",
+					"zh-cn": "电池温度",
+				},
+				type: "number",
+				role: "value.temperature",
+				unit: "°C",
+				read: true,
+				write: false,
+			},
+			native: {},
+		});
+
+		await this.setObjectNotExistsAsync("pv1Power", {
+			type: "state",
+			common: {
+				name: {
+					en: "PV String 1 Power",
+					de: "PV-String 1 Leistung",
+					ru: "Мощность PV-строки 1",
+					pt: "Potência do string PV 1",
+					nl: "PV-string 1 vermogen",
+					fr: "Puissance chaîne PV 1",
+					it: "Potenza stringa PV 1",
+					es: "Potencia cadena FV 1",
+					pl: "Moc łańcucha PV 1",
+					uk: "Потужність рядка PV 1",
+					"zh-cn": "PV 串列 1 功率",
+				},
+				type: "number",
+				role: "value.power",
+				unit: "kW",
+				read: true,
+				write: false,
+			},
+			native: {},
+		});
+
+		await this.setObjectNotExistsAsync("pv2Power", {
+			type: "state",
+			common: {
+				name: {
+					en: "PV String 2 Power",
+					de: "PV-String 2 Leistung",
+					ru: "Мощность PV-строки 2",
+					pt: "Potência do string PV 2",
+					nl: "PV-string 2 vermogen",
+					fr: "Puissance chaîne PV 2",
+					it: "Potenza stringa PV 2",
+					es: "Potencia cadena FV 2",
+					pl: "Moc łańcucha PV 2",
+					uk: "Потужність рядка PV 2",
+					"zh-cn": "PV 串列 2 功率",
+				},
+				type: "number",
+				role: "value.power",
+				unit: "kW",
+				read: true,
+				write: false,
+			},
+			native: {},
+		});
 	}
 
 	/**
@@ -316,6 +415,8 @@ class Foxesscloud extends utils.Adapter {
 				sn: this.config.sn,
 				variables: [
 					"pvPower",
+					"pv1Power",
+					"pv2Power",
 					"generationPower",
 					"SoC",
 					"loadsPower",
@@ -323,7 +424,9 @@ class Foxesscloud extends utils.Adapter {
 					"feedinPower",
 					"batChargePower",
 					"batDischargePower",
+					"batTemperature_1",
 					"invTemperation",
+					"runningState",
 				],
 			});
 
@@ -475,6 +578,29 @@ class Foxesscloud extends utils.Adapter {
 								// Reset warning level below threshold minus hysteresis to avoid log spam.
 								this.lastTempWarningLevel = 0;
 							}
+						}
+
+						const pv1PowerData = getDataPointByVariable("pv1Power");
+						if (pv1PowerData && pv1PowerData.value !== undefined) {
+							const pv1 = parseFloat(pv1PowerData.value.toFixed(3));
+							this.setState("pv1Power", pv1, true);
+						}
+
+						const pv2PowerData = getDataPointByVariable("pv2Power");
+						if (pv2PowerData && pv2PowerData.value !== undefined) {
+							const pv2 = parseFloat(pv2PowerData.value.toFixed(3));
+							this.setState("pv2Power", pv2, true);
+						}
+
+						const batTemperatureData = getDataPointByVariable("batTemperature_1");
+						if (batTemperatureData && batTemperatureData.value !== undefined) {
+							const batTemp = parseFloat(batTemperatureData.value.toFixed(1));
+							this.setState("batTemperature", batTemp, true);
+						}
+
+						const runningStateData = getDataPointByVariable("runningState");
+						if (runningStateData && runningStateData.value !== undefined) {
+							this.setState("runningState", String(runningStateData.value), true);
 						}
 
 						this.log.debug("Data successfully updated");
