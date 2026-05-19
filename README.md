@@ -79,8 +79,11 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior
+
 ### 0.3.0 (2026-05-19)
-- (inventwo) Added inverter internal temperature datapoint in °C
+- (skvarel) Added inverter internal temperature datapoint in °C
 
 ### 0.2.3 (2026-05-14)
 - (skvarel) Fixed issue from adapter checker

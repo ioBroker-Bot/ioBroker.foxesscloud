@@ -387,7 +387,9 @@ class Foxesscloud extends utils.Adapter {
 						this.setState("info.connection", true, true);
 
 						// Update all states
+						// @ts-expect-error FoxESS response data is dynamically typed.
 						const getDataPointByVariable = variable =>
+							// @ts-expect-error FoxESS response data entries are dynamically typed.
 							datas.find(entry => entry && entry.variable === variable);
 
 						const pvPowerData = getDataPointByVariable("pvPower");

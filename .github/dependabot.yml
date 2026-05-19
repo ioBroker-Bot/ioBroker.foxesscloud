@@ -10,6 +10,9 @@ updates:
     labels:
       - 'dependencies'
     ignore:
+      - dependency-name: 'form-data'
+      - dependency-name: 'tough-cookie'
+      - dependency-name: 'xmldom'
       - dependency-name: '@types/node'
         update-types:
           - 'version-update:semver-major'
