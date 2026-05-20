@@ -66,7 +66,7 @@
                     "md": 12,
                     "lg": 12,
                     "xl": 12,
-                    "help": "Generate JSON tables for daily, weekly, and monthly PV power data for VIS widgets"
+                    "help": "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets"
                 },
                 "_dataOptions": {
                     "type": "header",
@@ -82,7 +82,7 @@
                     "md": 6,
                     "lg": 6,
                     "xl": 6,
-                    "help": "Generate daily energy data (last 7 days)"
+                    "help": "Generate daily energy data for the current week (Monday to Sunday)"
                 },
                 "pvPowerJSON_weekly": {
                     "type": "checkbox",
@@ -93,7 +93,7 @@
                     "md": 6,
                     "lg": 6,
                     "xl": 6,
-                    "help": "Generate weekly energy data (last 4 weeks)"
+                    "help": "Generate weekly energy data for the current month (all weeks in this month)"
                 },
                 "pvPowerJSON_monthly": {
                     "type": "checkbox",
@@ -104,7 +104,7 @@
                     "md": 6,
                     "lg": 6,
                     "xl": 6,
-                    "help": "Generate monthly energy data (all 12 months)"
+                    "help": "Generate monthly energy data for the current year (all 12 months)"
                 },
                 "_costSettings": {
                     "type": "header",
@@ -122,6 +122,10 @@
                     "lg": 6,
                     "xl": 6,
                     "help": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display"
+                },
+                "_infoBox": {
+                    "type": "staticText",
+                    "text": "<b>Note on Extended Statistics:</b> These statistics show data for the current day/week/month/year only. For historical data, trend analysis, or extended time ranges, please use additional statistics adapters like iobroker.history or iobroker.influxdb."
                 },
                 "_startValues": {
                     "type": "header",

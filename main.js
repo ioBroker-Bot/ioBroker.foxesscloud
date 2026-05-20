@@ -918,6 +918,38 @@ class Foxesscloud extends utils.Adapter {
 	}
 
 	/**
+	 * Get all ISO week keys for the current month.
+	 * Returns all weeks that contain at least one day in the current month.
+	 *
+	 * @param {Date} date - Reference date
+	 * @returns {string[]} Week keys for current month in chronological order
+	 */
+	getMonthWeekKeys(date) {
+		const d = new Date(date);
+		d.setHours(0, 0, 0, 0);
+
+		const year = d.getFullYear();
+		const month = d.getMonth();
+
+		// Get first day of current month
+		const firstDay = new Date(year, month, 1);
+		// Get last day of current month
+		const lastDay = new Date(year, month + 1, 0);
+
+		const weekKeys = new Set();
+		const currentDate = new Date(firstDay);
+
+		// Collect all week keys that contain days in the current month
+		while (currentDate <= lastDay) {
+			weekKeys.add(this.getWeekKey(currentDate));
+			currentDate.setDate(currentDate.getDate() + 1);
+		}
+
+		// Sort and return as array
+		return Array.from(weekKeys).sort();
+	}
+
+	/**
 	 * Get week key in format YYYY-Www (ISO week)
 	 *
 	 * @param {Date} date - Date object
@@ -942,7 +974,7 @@ class Foxesscloud extends utils.Adapter {
 		const dateObj = new Date(dateKey);
 		const entry = this.createStatisticsEntry(dateKey, this.getDayName(dateObj), totalEnergy);
 
-		// Keep only last 7 days
+		// Keep only 7 days (current ISO week)
 		this.pvPowerJsonData.daily.push(entry);
 		if (this.pvPowerJsonData.daily.length > 7) {
 			this.pvPowerJsonData.daily.shift();
@@ -958,9 +990,9 @@ class Foxesscloud extends utils.Adapter {
 	rotateWeeklyData(weekKey, totalEnergy) {
 		const entry = this.createStatisticsEntry(weekKey, `KW ${weekKey.split("-W")[1]}`, totalEnergy);
 
-		// Keep only last 4 weeks
+		// Keep only last 5 weeks (current month)
 		this.pvPowerJsonData.weekly.push(entry);
-		if (this.pvPowerJsonData.weekly.length > 4) {
+		if (this.pvPowerJsonData.weekly.length > 5) {
 			this.pvPowerJsonData.weekly.shift();
 		}
 	}
@@ -1040,7 +1072,7 @@ class Foxesscloud extends utils.Adapter {
 	 * Generate and update weekly JSON state
 	 */
 	async generateAndUpdateWeeklyJson() {
-		const data = this.getRecentWeekKeys(new Date(), 4).map(weekKey => {
+		const data = this.getMonthWeekKeys(new Date()).map(weekKey => {
 			if (weekKey === this.lastUpdateWeek) {
 				return this.createStatisticsEntry(weekKey, `KW ${weekKey.split("-W")[1]}`, this.currentWeekTotal);
 			}

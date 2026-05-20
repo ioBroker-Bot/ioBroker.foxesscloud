@@ -144,8 +144,6 @@ The language of date labels (day/week/month names) automatically adapts to your 
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (skvarel) Added configurable start values for the running day, week, and month in PV Power JSON statistics
-- (skvarel) Adjusted the daily JSON table to show the current week from Monday to Sunday and include the running period totals
 - (skvarel) Added PV Power JSON statistics (daily, weekly, monthly) for VIS widget integration with optional cost calculation per kWh
 
 ### 0.4.0 (2026-05-19)
