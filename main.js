@@ -23,6 +23,19 @@ class Foxesscloud extends utils.Adapter {
 		this.updateInterval = null;
 		this.systemLanguage = "en";
 		this.lastTempWarningLevel = 0;
+
+		// PV Power JSON tracking
+		this.pvPowerJsonData = {
+			daily: [],
+			weekly: [],
+			monthly: [],
+		};
+		this.currentDayTotal = 0;
+		this.currentWeekTotal = 0;
+		this.currentMonthTotal = 0;
+		this.lastUpdateDate = null;
+		this.lastUpdateWeek = null;
+		this.lastUpdateMonth = null;
 	}
 
 	/**
@@ -404,6 +417,60 @@ class Foxesscloud extends utils.Adapter {
 			},
 			native: {},
 		});
+
+		// Create JSON states for PV power statistics
+		if (this.config.enablePvPowerJSON) {
+			if (this.config.pvPowerJSON_daily) {
+				await this.setObjectNotExistsAsync("pvPowerJSON.daily", {
+					type: "state",
+					common: {
+						name: {
+							en: "Daily PV Power Statistics (JSON)",
+							de: "Tägliche PV-Leistungsstatistiken (JSON)",
+						},
+						type: "string",
+						role: "json",
+						read: true,
+						write: false,
+					},
+					native: {},
+				});
+			}
+
+			if (this.config.pvPowerJSON_weekly) {
+				await this.setObjectNotExistsAsync("pvPowerJSON.weekly", {
+					type: "state",
+					common: {
+						name: {
+							en: "Weekly PV Power Statistics (JSON)",
+							de: "Wöchentliche PV-Leistungsstatistiken (JSON)",
+						},
+						type: "string",
+						role: "json",
+						read: true,
+						write: false,
+					},
+					native: {},
+				});
+			}
+
+			if (this.config.pvPowerJSON_monthly) {
+				await this.setObjectNotExistsAsync("pvPowerJSON.monthly", {
+					type: "state",
+					common: {
+						name: {
+							en: "Monthly PV Power Statistics (JSON)",
+							de: "Monatliche PV-Leistungsstatistiken (JSON)",
+						},
+						type: "string",
+						role: "json",
+						read: true,
+						write: false,
+					},
+					native: {},
+				});
+			}
+		}
 	}
 
 	/**
@@ -500,6 +567,13 @@ class Foxesscloud extends utils.Adapter {
 						if (pvPowerData && pvPowerData.value !== undefined) {
 							const pvPower = parseFloat(pvPowerData.value.toFixed(3));
 							this.setState("pvPower", pvPower, true);
+
+							// Update PV Power JSON statistics (fire and forget)
+							this.updatePvPowerJson(pvPower).catch(err => {
+								this.log.debug(
+									`Error updating PV Power JSON: ${err instanceof Error ? err.message : String(err)}`,
+								);
+							});
 						}
 
 						const generationPowerData = getDataPointByVariable("generationPower");
@@ -639,6 +713,322 @@ class Foxesscloud extends utils.Adapter {
 			}
 			this.setState("info.connection", false, true);
 		}
+	}
+
+	/**
+	 * Track PV power data and update JSON statistics
+	 *
+	 * @param {number} pvPower - Current PV power in kW
+	 */
+	async updatePvPowerJson(pvPower) {
+		if (!this.config.enablePvPowerJSON) {
+			return;
+		}
+
+		const now = new Date();
+		const dayKey = now.toISOString().split("T")[0]; // YYYY-MM-DD
+		const weekKey = this.getWeekKey(now);
+		const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`; // YYYY-MM
+
+		// Check if date changed and rotate data
+		if (this.lastUpdateDate !== dayKey) {
+			if (this.lastUpdateDate !== null && this.currentDayTotal > 0) {
+				this.rotateDailyData(this.lastUpdateDate, this.currentDayTotal);
+			}
+			this.currentDayTotal = 0;
+			this.lastUpdateDate = dayKey;
+		}
+
+		if (this.lastUpdateWeek !== weekKey) {
+			if (this.lastUpdateWeek !== null && this.currentWeekTotal > 0) {
+				this.rotateWeeklyData(this.lastUpdateWeek, this.currentWeekTotal);
+			}
+			this.currentWeekTotal = 0;
+			this.lastUpdateWeek = weekKey;
+		}
+
+		if (this.lastUpdateMonth !== monthKey) {
+			if (this.lastUpdateMonth !== null && this.currentMonthTotal > 0) {
+				this.rotateMonthlyData(this.lastUpdateMonth, this.currentMonthTotal);
+			}
+			this.currentMonthTotal = 0;
+			this.lastUpdateMonth = monthKey;
+		}
+
+		// Add PV power to current totals (convert power to energy: kW * seconds / 3600)
+		const energyPerInterval = (pvPower * (this.config.interval || 60)) / 3600; // kWh
+		this.currentDayTotal += energyPerInterval;
+		this.currentWeekTotal += energyPerInterval;
+		this.currentMonthTotal += energyPerInterval;
+
+		// Update JSON states
+		if (this.config.pvPowerJSON_daily) {
+			await this.generateAndUpdateDailyJson();
+		}
+		if (this.config.pvPowerJSON_weekly) {
+			await this.generateAndUpdateWeeklyJson();
+		}
+		if (this.config.pvPowerJSON_monthly) {
+			await this.generateAndUpdateMonthlyJson();
+		}
+	}
+
+	/**
+	 * Get week key in format YYYY-Www (ISO week)
+	 *
+	 * @param {Date} date - Date object
+	 * @returns {string} Week key
+	 */
+	getWeekKey(date) {
+		const d = new Date(date);
+		d.setHours(0, 0, 0, 0);
+		d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+		const yearStart = new Date(d.getFullYear(), 0, 1);
+		const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+		return `${d.getFullYear()}-W${String(weekNo).padStart(2, "0")}`;
+	}
+
+	/**
+	 * Store daily data in history
+	 *
+	 * @param {string} dateKey - Date key YYYY-MM-DD
+	 * @param {number} totalEnergy - Total energy in kWh
+	 */
+	rotateDailyData(dateKey, totalEnergy) {
+		const dateObj = new Date(dateKey);
+		const dayNames = {
+			en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+			de: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+		};
+		const lang = this.systemLanguage === "de" ? "de" : "en";
+		const dayName = dayNames[lang][dateObj.getDay()];
+
+		const entry = {
+			date: dayName,
+			value: parseFloat(totalEnergy.toFixed(3)).toString(),
+		};
+
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			entry.price = parseFloat((totalEnergy * this.config.kwhPrice).toFixed(2)).toString();
+		}
+
+		// Keep only last 7 days
+		this.pvPowerJsonData.daily.push(entry);
+		if (this.pvPowerJsonData.daily.length > 7) {
+			this.pvPowerJsonData.daily.shift();
+		}
+	}
+
+	/**
+	 * Store weekly data in history
+	 *
+	 * @param {string} weekKey - Week key YYYY-Www
+	 * @param {number} totalEnergy - Total energy in kWh
+	 */
+	rotateWeeklyData(weekKey, totalEnergy) {
+		const entry = {
+			date: `KW ${weekKey.split("-W")[1]}`,
+			value: parseFloat(totalEnergy.toFixed(3)).toString(),
+		};
+
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			entry.price = parseFloat((totalEnergy * this.config.kwhPrice).toFixed(2)).toString();
+		}
+
+		// Keep only last 4 weeks
+		this.pvPowerJsonData.weekly.push(entry);
+		if (this.pvPowerJsonData.weekly.length > 4) {
+			this.pvPowerJsonData.weekly.shift();
+		}
+	}
+
+	/**
+	 * Store monthly data in history
+	 *
+	 * @param {string} monthKey - Month key YYYY-MM
+	 * @param {number} totalEnergy - Total energy in kWh
+	 */
+	rotateMonthlyData(monthKey, totalEnergy) {
+		const [, month] = monthKey.split("-").map(Number);
+		const monthNames = {
+			en: [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December",
+			],
+			de: [
+				"Januar",
+				"Februar",
+				"März",
+				"April",
+				"Mai",
+				"Juni",
+				"Juli",
+				"August",
+				"September",
+				"Oktober",
+				"November",
+				"Dezember",
+			],
+		};
+		const lang = this.systemLanguage === "de" ? "de" : "en";
+		const monthName = monthNames[lang][month - 1];
+
+		const entry = {
+			date: monthName,
+			value: parseFloat(totalEnergy.toFixed(3)).toString(),
+		};
+
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			entry.price = parseFloat((totalEnergy * this.config.kwhPrice).toFixed(2)).toString();
+		}
+
+		// Find and update or add month
+		const existingIndex = this.pvPowerJsonData.monthly.findIndex(e => e.date === monthName);
+		if (existingIndex >= 0) {
+			this.pvPowerJsonData.monthly[existingIndex] = entry;
+		} else {
+			this.pvPowerJsonData.monthly.push(entry);
+		}
+	}
+
+	/**
+	 * Generate and update daily JSON state
+	 */
+	async generateAndUpdateDailyJson() {
+		const data = [...this.pvPowerJsonData.daily];
+
+		// Calculate total
+		let totalValue = 0;
+		let totalPrice = 0;
+		for (const entry of data) {
+			totalValue += parseFloat(entry.value);
+			if (entry.price) {
+				totalPrice += parseFloat(entry.price);
+			}
+		}
+
+		const sumEntry = {
+			date: this.systemLanguage === "de" ? "Summe" : "Total",
+			value: parseFloat(totalValue.toFixed(3)).toString(),
+		};
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			sumEntry.price = parseFloat(totalPrice.toFixed(2)).toString();
+		}
+
+		data.push(sumEntry);
+		await this.setState("pvPowerJSON.daily", JSON.stringify(data), true);
+	}
+
+	/**
+	 * Generate and update weekly JSON state
+	 */
+	async generateAndUpdateWeeklyJson() {
+		const data = [...this.pvPowerJsonData.weekly];
+
+		// Calculate total
+		let totalValue = 0;
+		let totalPrice = 0;
+		for (const entry of data) {
+			totalValue += parseFloat(entry.value);
+			if (entry.price) {
+				totalPrice += parseFloat(entry.price);
+			}
+		}
+
+		const sumEntry = {
+			date: this.systemLanguage === "de" ? "Summe" : "Total",
+			value: parseFloat(totalValue.toFixed(3)).toString(),
+		};
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			sumEntry.price = parseFloat(totalPrice.toFixed(2)).toString();
+		}
+
+		data.push(sumEntry);
+		await this.setState("pvPowerJSON.weekly", JSON.stringify(data), true);
+	}
+
+	/**
+	 * Generate and update monthly JSON state
+	 */
+	async generateAndUpdateMonthlyJson() {
+		// Ensure all 12 months are present
+		const monthNames = {
+			en: [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December",
+			],
+			de: [
+				"Januar",
+				"Februar",
+				"März",
+				"April",
+				"Mai",
+				"Juni",
+				"Juli",
+				"August",
+				"September",
+				"Oktober",
+				"November",
+				"Dezember",
+			],
+		};
+		const lang = this.systemLanguage === "de" ? "de" : "en";
+		const months = monthNames[lang];
+
+		const data = [];
+		for (const monthName of months) {
+			const entry = this.pvPowerJsonData.monthly.find(e => e.date === monthName);
+			if (entry) {
+				data.push(entry);
+			} else {
+				data.push({
+					date: monthName,
+					value: "0",
+					...(this.config.kwhPrice && this.config.kwhPrice > 0 && { price: "0" }),
+				});
+			}
+		}
+
+		// Calculate total
+		let totalValue = 0;
+		let totalPrice = 0;
+		for (const entry of data) {
+			totalValue += parseFloat(entry.value);
+			if (entry.price) {
+				totalPrice += parseFloat(entry.price);
+			}
+		}
+
+		const sumEntry = {
+			date: this.systemLanguage === "de" ? "Summe" : "Total",
+			value: parseFloat(totalValue.toFixed(3)).toString(),
+		};
+		if (this.config.kwhPrice && this.config.kwhPrice > 0) {
+			sumEntry.price = parseFloat(totalPrice.toFixed(2)).toString();
+		}
+
+		data.push(sumEntry);
+		await this.setState("pvPowerJSON.monthly", JSON.stringify(data), true);
 	}
 
 	/**

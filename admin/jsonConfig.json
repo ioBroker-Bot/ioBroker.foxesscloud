@@ -39,6 +39,67 @@
             "lg": 6,
             "xl": 6,
             "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
+        },
+        "_pvPowerJSON": {
+            "type": "header",
+            "text": "PV Power Energy Statistics (JSON)",
+            "size": 3
+        },
+        "enablePvPowerJSON": {
+            "type": "checkbox",
+            "label": "Enable PV Power JSON generation",
+            "default": false,
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12,
+            "help": "Generate JSON tables for daily, weekly, and monthly PV power data for VIS widgets"
+        },
+        "pvPowerJSON_daily": {
+            "type": "checkbox",
+            "label": "Daily statistics",
+            "default": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 6,
+            "xl": 6,
+            "help": "Generate daily energy data (last 7 days)"
+        },
+        "pvPowerJSON_weekly": {
+            "type": "checkbox",
+            "label": "Weekly statistics",
+            "default": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 6,
+            "xl": 6,
+            "help": "Generate weekly energy data (last 4 weeks)"
+        },
+        "pvPowerJSON_monthly": {
+            "type": "checkbox",
+            "label": "Monthly statistics",
+            "default": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 6,
+            "xl": 6,
+            "help": "Generate monthly energy data (all 12 months)"
+        },
+        "kwhPrice": {
+            "type": "number",
+            "label": "Price per kWh (€ - optional)",
+            "min": 0,
+            "step": 0.01,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 6,
+            "xl": 6,
+            "help": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display"
         }
     }
 }

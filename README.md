@@ -58,6 +58,11 @@ The adapter creates the following data points:
 - `foxesscloud.0.runningState` - Inverter Running State
 - `foxesscloud.0.info.connection` - Connection status
 
+### PV Power JSON Statistics (if enabled)
+- `foxesscloud.0.pvPowerJSON.daily` - Daily energy statistics (JSON format) - last 7 days
+- `foxesscloud.0.pvPowerJSON.weekly` - Weekly energy statistics (JSON format) - last 4 weeks
+- `foxesscloud.0.pvPowerJSON.monthly` - Monthly energy statistics (JSON format) - all 12 months
+
 ## Installation
 
 1. Install the adapter from the ioBroker admin interface
@@ -66,7 +71,13 @@ The adapter creates the following data points:
    - **API Token**: Your API key from the FoxESS Cloud portal
    - **Serial Number (SN)**: The serial number of your inverter
    - **Update Interval**: Data refresh interval in seconds (default: 60, minimum: 60)
-4. Save and start the instance
+4. Optionally enable PV Power JSON Statistics:
+   - **Enable PV Power JSON generation**: Activate JSON table generation for VIS widgets
+   - **Daily statistics**: Generate daily energy data (last 7 days)
+   - **Weekly statistics**: Generate weekly energy data (last 4 weeks)
+   - **Monthly statistics**: Generate monthly energy data (all 12 months)
+   - **Price per kWh**: Optional - enter your electricity price per kWh for cost calculations
+5. Save and start the instance
 
 ### How to get your API credentials
 
@@ -74,6 +85,46 @@ The adapter creates the following data points:
 2. Go to your profile/settings
 3. Generate an API key (token)
 4. Find your inverter serial number in the device list
+
+## PV Power JSON Statistics for VIS Dashboards
+
+When enabled in the configuration, the adapter generates JSON tables with energy statistics that can be displayed in ioBroker VIS using widgets like the **inventwo JSON Widget**.
+
+### JSON Format
+
+The JSON tables contain energy data with the following structure:
+
+```json
+[
+  {"date": "Monday", "value": "1.904", "price": "0.58"},
+  {"date": "Tuesday", "value": "4.653", "price": "1.42"},
+  {"date": "Total", "value": "6.843", "price": "2.09"}
+]
+```
+
+- **date**: Day name (localized), week number (KW XX), or month name
+- **value**: Energy generated in kWh (3 decimal places)
+- **price**: Costs in € (only if price per kWh is configured, 2 decimal places)
+
+### Data Collection
+
+- **Daily**: Accumulates PV power over each calendar day, keeps last 7 days
+- **Weekly**: Accumulates weekly data (Monday-Sunday), keeps last 4 weeks
+- **Monthly**: Accumulates monthly data (1st-last day), keeps all 12 months
+
+The language of date labels (day/week/month names) automatically adapts to your ioBroker system language:
+- **German** (de): Montag, Dienstag, January, Februar, etc.
+- **English** (en): Monday, Tuesday, Januar, Februar, etc.
+
+### Using with VIS
+
+1. Enable PV Power JSON generation in adapter configuration
+2. Add a JSON widget to your VIS dashboard
+3. Bind the widget to one of these states:
+   - `foxesscloud.0.pvPowerJSON.daily` for daily statistics
+   - `foxesscloud.0.pvPowerJSON.weekly` for weekly statistics
+   - `foxesscloud.0.pvPowerJSON.monthly` for monthly statistics
+4. Configure the widget to display the energy/price data in a table format
 
 ## Privacy & Data Handling
 
@@ -84,6 +135,9 @@ The adapter creates the following data points:
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (inventwo) Added PV Power JSON statistics (daily, weekly, monthly) for VIS widget integration with optional cost calculation per kWh
+
 ### 0.4.0 (2026-05-19)
 - (skvarel) Added PV string 1 and string 2 power datapoints (pv1Power, pv2Power)
 - (skvarel) Added battery temperature datapoint (batTemperature)
