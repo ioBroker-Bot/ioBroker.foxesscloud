@@ -12,6 +12,7 @@
     "Generate daily energy data for the current week (Monday to Sunday)": "Tägliche Energiedaten für die aktuelle Woche generieren (Montag bis Sonntag)",
     "Generate monthly energy data for the current year (all 12 months)": "Monatliche Energiedaten für das aktuelle Jahr generieren (alle 12 Monate)",
     "Generate weekly energy data for the current month (all weeks in this month)": "Wöchentliche Energiedaten für den aktuellen Monat generieren (alle Wochen dieses Monats)",
+    "Instances": "Für einen weiteren Wechselrichter, bitte eine neue Instanz anlegen. Pro Instanz kann nur eine Seriennummer angegeben werden.",
     "Inverter Serial Number": "Seriennummer des Wechselrichters",
     "Monthly start value (kWh)": "Startwert Monat (kWh)",
     "Monthly statistics": "Monatliche Statistiken",

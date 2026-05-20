@@ -29,5 +29,6 @@
     "tab_statistics": "Statistics",
     "Update Interval (seconds)": "Update Interval (seconds)",
     "Weekly start value (kWh)": "Weekly start value (kWh)",
-    "Weekly statistics": "Weekly statistics"
+    "Weekly statistics": "Weekly statistics",
+    "Instances": "For an additional inverter, please create a new instance. Only one serial number can be specified per instance."
 }

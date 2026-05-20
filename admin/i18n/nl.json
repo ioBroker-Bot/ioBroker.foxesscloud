@@ -12,6 +12,7 @@
     "Generate daily energy data for the current week (Monday to Sunday)": "Genereer dagelijkse energiegegevens voor de huidige week (maandag tot en met zondag)",
     "Generate monthly energy data for the current year (all 12 months)": "Genereer maandelijkse energiegegevens voor het lopende jaar (alle 12 maanden)",
     "Generate weekly energy data for the current month (all weeks in this month)": "Genereer wekelijkse energiegegevens voor de huidige maand (alle weken van deze maand)",
+    "Instances": "Voor een extra omvormer dient u een nieuw exemplaar aan te maken. Er kan slechts één serienummer per exemplaar worden opgegeven.",
     "Inverter Serial Number": "Serienummer van de omvormer",
     "Monthly start value (kWh)": "Maandelijkse startwaarde (kWh)",
     "Monthly statistics": "Maandelijkse statistieken",

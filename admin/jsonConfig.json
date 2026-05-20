@@ -44,6 +44,19 @@
                     "lg": 6,
                     "xl": 6,
                     "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
+                },
+                "_infoBox1": {
+                    "type": "staticText",
+                    "text": "Instances",
+                    "style": {
+                        "fontSize": "0.875rem",
+                        "whiteSpace": "pre-wrap",
+                        "marginTop": "20px",
+                        "padding": "10px 14px",
+                        "border": "1px solid #546e7a",
+                        "borderRadius": "6px",
+                        "backgroundColor": "rgba(84, 110, 122, 0.12)"
+                    }
                 }
             }
         },
@@ -164,18 +177,18 @@
                     "xl": 4,
                     "help": "Optional starting value for the current month if the adapter was enabled later"
                 },
-                "_infoBox": {
+                "_infoBox2": {
                     "type": "staticText",
                     "text": "Note on Extended Statistics",
                     "style": {
-                                "fontSize": "0.875rem",
-                                "whiteSpace": "pre-wrap",
-                                "marginTop": "20px",
-                                "padding": "10px 14px",
-                                "border": "1px solid #546e7a",
-                                "borderRadius": "6px",
-                                "backgroundColor": "rgba(84, 110, 122, 0.12)"
-                            }
+                        "fontSize": "0.875rem",
+                        "whiteSpace": "pre-wrap",
+                        "marginTop": "20px",
+                        "padding": "10px 14px",
+                        "border": "1px solid #546e7a",
+                        "borderRadius": "6px",
+                        "backgroundColor": "rgba(84, 110, 122, 0.12)"
+                    }
                 }
             }
         }

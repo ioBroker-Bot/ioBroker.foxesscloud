@@ -12,6 +12,7 @@
     "Generate daily energy data for the current week (Monday to Sunday)": "Generar datos de energía diarios para la semana actual (de lunes a domingo)",
     "Generate monthly energy data for the current year (all 12 months)": "Generar datos de energía mensuales para el año actual (los 12 meses)",
     "Generate weekly energy data for the current month (all weeks in this month)": "Generar datos de energía semanales para el mes actual (todas las semanas de este mes)",
+    "Instances": "Para un inversor adicional, cree una nueva instancia. Solo se puede especificar un número de serie por instancia.",
     "Inverter Serial Number": "Número de serie del inversor",
     "Monthly start value (kWh)": "Valor inicial mensual (kWh)",
     "Monthly statistics": "Estadísticas mensuales",
