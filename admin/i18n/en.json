@@ -15,7 +15,7 @@
     "Inverter Serial Number": "Inverter Serial Number",
     "Monthly statistics": "Monthly statistics",
     "Monthly start value (kWh)": "Monthly start value (kWh)",
-    "Note on Extended Statistics": "Note on Extended Statistics: These statistics show data for the current day/week/month/year only. For historical data, trend analysis, or extended time ranges, please use additional statistics adapters like iobroker.history or iobroker.influxdb.",
+    "extended_statistics_info_text": "Note on Extended Statistics: These statistics show data for the current day/week/month/year only. For historical data, trend analysis, or extended time ranges, please use additional statistics adapters like iobroker.history or iobroker.influxdb.",
     "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display",
     "Optional starting value for the current month if the adapter was enabled later": "Optional starting value for the current month if the adapter was enabled later",
     "Optional starting value for the current week if the adapter was enabled later": "Optional starting value for the current week if the adapter was enabled later",
@@ -30,5 +30,5 @@
     "Update Interval (seconds)": "Update Interval (seconds)",
     "Weekly start value (kWh)": "Weekly start value (kWh)",
     "Weekly statistics": "Weekly statistics",
-    "Instances": "For an additional inverter, please create a new instance. Only one serial number can be specified per instance."
+    "instance_info_text": "For an additional inverter, please create a new instance. Only one serial number can be specified per instance."
 }

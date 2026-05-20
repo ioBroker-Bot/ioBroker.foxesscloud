@@ -47,7 +47,7 @@
                 },
                 "_infoBox1": {
                     "type": "staticText",
-                    "text": "Instances",
+                    "text": "instance_info_text",
                     "style": {
                         "fontSize": "0.875rem",
                         "whiteSpace": "pre-wrap",
@@ -179,7 +179,7 @@
                 },
                 "_infoBox2": {
                     "type": "staticText",
-                    "text": "Note on Extended Statistics",
+                    "text": "extended_statistics_info_text",
                     "style": {
                         "fontSize": "0.875rem",
                         "whiteSpace": "pre-wrap",
