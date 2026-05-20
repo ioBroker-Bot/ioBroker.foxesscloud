@@ -2,7 +2,9 @@
     "API Token": "API Token",
     "API-Key aus der FoxESS Cloud": "API key from the FoxESS Cloud portal",
     "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)": "Update interval in seconds (Recommended: 60, Minimum: 60, API limit: 1440 calls/day)",
+    "Cost Calculation (Optional)": "Cost Calculation (Optional)",
     "Daily statistics": "Daily statistics",
+    "Data Collection Options": "Data Collection Options",
     "Enable PV Power JSON generation": "Enable PV Power JSON generation",
     "FoxESS Cloud API Configuration": "FoxESS Cloud API Configuration",
     "Generate daily energy data (last 7 days)": "Generate daily energy data (last 7 days)",
@@ -14,6 +16,8 @@
     "PV Power Energy Statistics (JSON)": "PV Power Energy Statistics (JSON)",
     "Serial Number (SN)": "Serial Number (SN)",
     "Seriennummer vom Inverter": "Serial number of the inverter",
+    "tab_general": "General",
+    "tab_statistics": "Statistics",
     "Update Interval (seconds)": "Update Interval (seconds)",
     "Weekly statistics": "Weekly statistics"
 }

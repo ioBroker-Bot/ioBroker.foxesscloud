@@ -1,105 +1,129 @@
 {
     "i18n": true,
-    "type": "panel",
+    "type": "tabs",
     "items": {
-        "_info": {
-            "type": "header",
-            "text": "FoxESS Cloud API Configuration",
-            "size": 3
-        },
-        "token": {
-            "type": "password",
-            "label": "API Token",
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12,
-            "xl": 12,
-            "help": "API-Key aus der FoxESS Cloud"
-        },
-        "sn": {
-            "type": "text",
-            "label": "Serial Number (SN)",
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12,
-            "xl": 12,
-            "help": "Seriennummer vom Inverter"
-        },
-        "interval": {
-            "type": "number",
-            "label": "Update Interval (seconds)",
-            "min": 60,
-            "max": 3600,
-            "default": 60,
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 6,
-            "xl": 6,
-            "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
+        "_general": {
+            "type": "panel",
+            "label": "tab_general",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMTksMTJhNyw3IDAgMCwwLTcsN2E3LDcgMCAwLDAgNyw3YTcsNyAwIDAsICA3LC03YTcsNyAwIDAsMCAtNywtN00xMSwyNGExMiwxMiAwIDAsMSAwLC0yNGExMiwxMiAwIDAsMSAwLDI0em0xLTIybC0xLDZoMEwxMCw5Yy0uNTgtLjctMS40NC0xLTIuMzgtMUg2YzAtMi4yIDEuNzktNCA0LTRoMGMxLjk0LDAgMy42MSwxLjUtMy45OSwzLjV6bTUuOSwwaC0xLjE2Yy0uOSwwLTEuNzYuMy0yLjM4LDFsLTEuOS01LjloMGMwLTIuMiAxLjc5LTQgNC00aDBjMi4yMSwwIDQsMS43OSA0LDRIM20gMCAwIi8+PC9zdmc+",
+            "items": {
+                "_apiHeader": {
+                    "type": "header",
+                    "text": "FoxESS Cloud API Configuration",
+                    "size": 3
+                },
+                "token": {
+                    "type": "password",
+                    "label": "API Token",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "help": "API-Key aus der FoxESS Cloud"
+                },
+                "sn": {
+                    "type": "text",
+                    "label": "Serial Number (SN)",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "help": "Seriennummer vom Inverter"
+                },
+                "interval": {
+                    "type": "number",
+                    "label": "Update Interval (seconds)",
+                    "min": 60,
+                    "max": 3600,
+                    "default": 60,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6,
+                    "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
+                }
+            }
         },
         "_pvPowerJSON": {
-            "type": "header",
-            "text": "PV Power Energy Statistics (JSON)",
-            "size": 3
-        },
-        "enablePvPowerJSON": {
-            "type": "checkbox",
-            "label": "Enable PV Power JSON generation",
-            "default": false,
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12,
-            "xl": 12,
-            "help": "Generate JSON tables for daily, weekly, and monthly PV power data for VIS widgets"
-        },
-        "pvPowerJSON_daily": {
-            "type": "checkbox",
-            "label": "Daily statistics",
-            "default": true,
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 6,
-            "xl": 6,
-            "help": "Generate daily energy data (last 7 days)"
-        },
-        "pvPowerJSON_weekly": {
-            "type": "checkbox",
-            "label": "Weekly statistics",
-            "default": true,
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 6,
-            "xl": 6,
-            "help": "Generate weekly energy data (last 4 weeks)"
-        },
-        "pvPowerJSON_monthly": {
-            "type": "checkbox",
-            "label": "Monthly statistics",
-            "default": true,
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 6,
-            "xl": 6,
-            "help": "Generate monthly energy data (all 12 months)"
-        },
-        "kwhPrice": {
-            "type": "number",
-            "label": "Price per kWh (€ - optional)",
-            "min": 0,
-            "step": 0.01,
-            "xs": 12,
-            "sm": 12,
-            "md": 6,
-            "lg": 6,
-            "xl": 6,
-            "help": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display"
+            "type": "panel",
+            "label": "tab_statistics",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMTksMy41SDE1VjJIMTN2MS41SDExVjJIOXYxLjVIN1Y1SDE1VjMuNUgxOVYxOUg1VjVIM1Y3SDVWMTlDNSwyMC42IDYuNCwyMiA4LDIySDE2QzE3LjYsMjIgMTksMjAuNiAxOSwxOVY1SDE5VjMuNVpNOSw5SDdWMTlIOVpNMTMsOUgxMVYxOUgxM1pNMTcsMTNIMTVWMTlIMTdWMTNaIi8+PC9zdmc+",
+            "items": {
+                "_statisticsHeader": {
+                    "type": "header",
+                    "text": "PV Power Energy Statistics (JSON)",
+                    "size": 3
+                },
+                "enablePvPowerJSON": {
+                    "type": "checkbox",
+                    "label": "Enable PV Power JSON generation",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "help": "Generate JSON tables for daily, weekly, and monthly PV power data for VIS widgets"
+                },
+                "_dataOptions": {
+                    "type": "header",
+                    "text": "Data Collection Options",
+                    "size": 4
+                },
+                "pvPowerJSON_daily": {
+                    "type": "checkbox",
+                    "label": "Daily statistics",
+                    "default": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6,
+                    "help": "Generate daily energy data (last 7 days)"
+                },
+                "pvPowerJSON_weekly": {
+                    "type": "checkbox",
+                    "label": "Weekly statistics",
+                    "default": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6,
+                    "help": "Generate weekly energy data (last 4 weeks)"
+                },
+                "pvPowerJSON_monthly": {
+                    "type": "checkbox",
+                    "label": "Monthly statistics",
+                    "default": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6,
+                    "help": "Generate monthly energy data (all 12 months)"
+                },
+                "_costSettings": {
+                    "type": "header",
+                    "text": "Cost Calculation (Optional)",
+                    "size": 4
+                },
+                "kwhPrice": {
+                    "type": "number",
+                    "label": "Price per kWh (€ - optional)",
+                    "min": 0,
+                    "step": 0.01,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6,
+                    "help": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display"
+                }
+            }
         }
     }
 }
