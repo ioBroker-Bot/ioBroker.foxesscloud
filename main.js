@@ -470,6 +470,24 @@ class Foxesscloud extends utils.Adapter {
 					native: {},
 				});
 			}
+
+			// Internal state to persist running totals across adapter restarts
+			await this.setObjectNotExistsAsync("pvPowerJSON._runningState", {
+				type: "state",
+				common: {
+					name: {
+						en: "PV Power Statistics Running State (internal)",
+						de: "PV-Statistiken Laufzustand (intern)",
+					},
+					type: "string",
+					role: "json",
+					read: true,
+					write: false,
+				},
+				native: {},
+			});
+
+			await this.restorePvPowerJsonState();
 		}
 	}
 
@@ -716,6 +734,52 @@ class Foxesscloud extends utils.Adapter {
 	}
 
 	/**
+	 * Restore running totals and historical data from the persisted ioBroker state.
+	 * Falls back to configured start values if no persisted state exists yet.
+	 */
+	async restorePvPowerJsonState() {
+		const state = await this.getStateAsync("pvPowerJSON._runningState");
+		if (state && state.val) {
+			try {
+				const saved = JSON.parse(state.val);
+				this.currentDayTotal = saved.currentDayTotal ?? 0;
+				this.currentWeekTotal = saved.currentWeekTotal ?? 0;
+				this.currentMonthTotal = saved.currentMonthTotal ?? 0;
+				this.lastUpdateDate = saved.lastUpdateDate ?? null;
+				this.lastUpdateWeek = saved.lastUpdateWeek ?? null;
+				this.lastUpdateMonth = saved.lastUpdateMonth ?? null;
+				if (saved.pvPowerJsonData) {
+					this.pvPowerJsonData = saved.pvPowerJsonData;
+				}
+				this.log.debug("PV power statistics restored from persisted state.");
+			} catch (e) {
+				this.log.warn(
+					`Failed to restore PV power statistics state: ${e instanceof Error ? e.message : String(e)}`,
+				);
+			}
+		} else {
+			this.log.debug("No persisted PV power statistics found – starting fresh.");
+		}
+	}
+
+	/**
+	 * Persist running totals and historical data to an ioBroker state so they
+	 * survive adapter restarts.
+	 */
+	async savePvPowerJsonState() {
+		const payload = JSON.stringify({
+			currentDayTotal: this.currentDayTotal,
+			currentWeekTotal: this.currentWeekTotal,
+			currentMonthTotal: this.currentMonthTotal,
+			lastUpdateDate: this.lastUpdateDate,
+			lastUpdateWeek: this.lastUpdateWeek,
+			lastUpdateMonth: this.lastUpdateMonth,
+			pvPowerJsonData: this.pvPowerJsonData,
+		});
+		await this.setStateAsync("pvPowerJSON._runningState", payload, true);
+	}
+
+	/**
 	 * Track PV power data and update JSON statistics
 	 *
 	 * @param {number} pvPower - Current PV power in kW
@@ -777,6 +841,9 @@ class Foxesscloud extends utils.Adapter {
 		if (this.config.pvPowerJSON_monthly) {
 			await this.generateAndUpdateMonthlyJson();
 		}
+
+		// Persist running totals so they survive adapter restarts
+		await this.savePvPowerJsonState();
 	}
 
 	/**

@@ -138,7 +138,7 @@
                 },
                 "_startValues": {
                     "type": "header",
-                    "text": "Start Values For Current Periods",
+                    "text": "Initial Start Values (one-time only)",
                     "size": 4
                 },
                 "pvPowerJSONStartDaily": {
@@ -151,7 +151,7 @@
                     "md": 4,
                     "lg": 4,
                     "xl": 4,
-                    "help": "Optional starting value for today if the adapter was enabled after production already started"
+                    "help": "start_value_daily_help"
                 },
                 "pvPowerJSONStartWeekly": {
                     "type": "number",
@@ -163,7 +163,7 @@
                     "md": 4,
                     "lg": 4,
                     "xl": 4,
-                    "help": "Optional starting value for the current week if the adapter was enabled later"
+                    "help": "start_value_weekly_help"
                 },
                 "pvPowerJSONStartMonthly": {
                     "type": "number",
@@ -175,7 +175,7 @@
                     "md": 4,
                     "lg": 4,
                     "xl": 4,
-                    "help": "Optional starting value for the current month if the adapter was enabled later"
+                    "help": "start_value_monthly_help"
                 },
                 "_infoBox2": {
                     "type": "staticText",
