@@ -144,8 +144,6 @@ The language of date labels (day/week/month names) automatically adapts to your 
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (inventwo) Persisted daily/weekly/monthly running totals to an ioBroker state so they survive adapter restarts without needing to clear config start values
-- (inventwo) Fixed configured start values for daily/weekly/monthly statistics being applied on every day/week/month rollover instead of only on the first adapter start
 - (skvarel) Added PV Power JSON statistics (daily, weekly, monthly) for VIS widget integration with optional cost calculation per kWh
 
 ### 0.4.0 (2026-05-19)
