@@ -23,6 +23,8 @@ updates:
     versioning-strategy: 'increase'
     cooldown:
       default-days: 7
+    allow:
+      - dependency-type: 'direct'
     ignore:
       - dependency-name: "@types/node"
         update-types:
