@@ -143,7 +143,6 @@ The language of date labels (day/week/month names) automatically adapts to your 
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
 
 ### 0.5.0 (2026-05-23)
 - (skvarel) Added PV Power JSON statistics (daily, weekly, monthly) for VIS widget integration with optional cost calculation per kWh
