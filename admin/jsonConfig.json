@@ -40,14 +40,19 @@
                     "default": 60,
                     "xs": 12,
                     "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "xl": 6,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
                     "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
                 },
                 "_infoBox1": {
                     "type": "staticText",
                     "text": "instance_info_text",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
                     "style": {
                         "fontSize": "0.875rem",
                         "whiteSpace": "pre-wrap",
@@ -180,6 +185,11 @@
                 "_infoBox2": {
                     "type": "staticText",
                     "text": "extended_statistics_info_text",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
                     "style": {
                         "fontSize": "0.875rem",
                         "whiteSpace": "pre-wrap",
