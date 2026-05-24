@@ -1,6 +1,6 @@
 ![Logo](admin/foxesscloud-logo.png)
 
-## ioBroker adapter for FoxESS Cloud
+# ioBroker adapter for FoxESS Cloud
 
 ![Number of Installations](https://iobroker.live/badges/foxesscloud-installed.svg) ![Current version in stable repository](https://iobroker.live/badges/foxesscloud-stable.svg)
 [![NPM Version](https://nodei.co/npm/iobroker.foxesscloud.svg?style=shields&data=v,u,d&color=orange)](https://www.npmjs.com/package/iobroker.foxesscloud)
