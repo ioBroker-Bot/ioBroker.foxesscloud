@@ -2,26 +2,42 @@
  * FoxESS Cloud API Test Script
  *
  * Usage:
- *   1. Copy .env.example to .env and fill in your credentials
- *   2. Run: node tools/api-test.js
+ *   Option 1: Pass credentials as command-line arguments:
+ *     node tools/api-test.js <token> <serial-number>
+ *
+ *   Option 2: Create a credentials.json file in the tools/ directory:
+ *     { "token": "your-api-token", "sn": "your-serial-number" }
+ *     Then run: node tools/api-test.js
  */
 
-// require('dotenv').config(); // Entfernt, da dotenv nicht mehr installiert ist
 const https = require("node:https");
 const crypto = require("node:crypto");
+const fs = require("node:fs");
+const nodePath = require("node:path");
 
-// Load credentials from environment variables
-const token = process.env.FOXESS_TOKEN;
-const sn = process.env.FOXESS_SN;
+// Load credentials from command-line arguments or config file
+let token, sn;
+
+if (process.argv.length >= 4) {
+	// Option 1: Command-line arguments
+	token = process.argv[2];
+	sn = process.argv[3];
+} else {
+	// Option 2: Read from tools/credentials.json
+	const credentialsPath = nodePath.join(__dirname, "credentials.json");
+	if (fs.existsSync(credentialsPath)) {
+		const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
+		token = credentials.token;
+		sn = credentials.sn;
+	}
+}
 
 if (!token || !sn) {
-	console.error("❌ Missing credentials!");
-	console.error("   Please create a .env file with:");
-	console.error("   FOXESS_TOKEN=your-api-token");
-	console.error("   FOXESS_SN=your-serial-number");
-	console.error("");
-	console.error("   Or copy .env.example to .env and fill in your values.");
-	process.exit(1);
+	throw new Error(
+		"Missing credentials!\n" +
+			"Option 1: node tools/api-test.js <token> <serial-number>\n" +
+			'Option 2: Create tools/credentials.json with { "token": "...", "sn": "..." }',
+	);
 }
 
 const path = "/op/v0/device/real/query";

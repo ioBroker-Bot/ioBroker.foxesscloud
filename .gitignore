@@ -61,6 +61,9 @@ typings/
 .env
 .env.example
 
+# API test credentials (contains sensitive data)
+tools/credentials.json
+
 # next.js build output
 .next
 
