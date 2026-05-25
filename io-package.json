@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "news": {
+      "0.5.1": {
+        "en": "Replaced process.env and process.exit usage in tools/api-test.js to fix compatibility issues reported by ioBroker repository checker (E5049, E5050)\nDowngraded @types/node from ^25 to ^22 to match supported Node.js version (W0066)",
+        "de": "Ersetzte process.env und process.exit Nutzung in tools/api-test.js, um Kompatibilitätsprobleme zu beheben, die von ioBroker Repository Checker (E5049, E505050) gemeldet wurden\nAbgekürzte @types/node von ^25 bis ^22, um die unterstützte Node.js-Version (W0066) anzupassen",
+        "ru": "Использование process.env и process.exit в инструментах/api-test.js для устранения проблем совместимости, о которых сообщает проверка репозитория ioBroker (E5049, E5050)\nПониженный @types/node с ^25 до ^22 в соответствии с поддерживаемой версией Node.js (W0066)",
+        "pt": "Uso substituído do process.env e process.exit em tools/api-test.js para corrigir problemas de compatibilidade relatados pelo verificador de repositório ioBroker (E5049, E5050)\nDowngraded @types/node de ^25 para ^22 para corresponder à versão suportada do Node.js (W0066)",
+        "nl": "Vervangde proces.env en proces.exit gebruik in tools/api-test.js om compatibiliteitsproblemen gemeld door ioBroker repository checker op te lossen (E5049, E5050)\nDowngraded @types/node van ^25 naar ^22 om de ondersteunde Node.js versie te vergelijken (W0066)",
+        "fr": "Remplaced process.env et process.exit utilisation in tools/api-test.js pour résoudre les problèmes de compatibilité signalés par ioBroker deposit checker (E5049, E5050)\nDéclassé @types/node de ^25 à ^22 pour correspondre à la version Node.js supportée (W0066)",
+        "it": "Process.env sostituito e process.exit utilizzo in strumenti/api-test.js per risolvere i problemi di compatibilità segnalati da ioBroker repository checker (E5049, E5050)\n@types/nodo degradato da ^25 a ^22 per abbinare la versione Node.js supportata (W0066)",
+        "es": "Proceso reemplazado.env y proceso.exit use in tools/api-test.js to fix compatibility issues reported by ioBroker repository checker (E5049, E5050)\nDegradado @tipos/nodo de ^25 a ^22 para coincidir con la versión Node.js compatible (W0066)",
+        "pl": "Zastąpione użycie process.env i process.exit w narzędziach / api- test.js w celu ustalenia problemów z kompatybilnością zgłaszanych przez sprawdzacz repozytorium jOBroker (E5049, E5050)\nSkrócony @ types / node od ^ 25 do ^ 22 do dopasowania obsługiwanej wersji Node.js (W0066)",
+        "uk": "Замінний процес.env і process.exit використання в інструментах /api-test.js для фіксації проблем сумісності, які повідомляються репозиторійним чекером ioBroker (E5049, E5050)\nDowngraded @types/node від ^25 до ^22, щоб відповідати підтримкою Node.js версії (W0066)",
+        "zh-cn": "替换 process.env 和 process.exit 工具/api-test.js 用于解决 ioBroker 寄存器检查器报告的兼容性问题(E5049, E5050)\n从 ^25 降级到 ^22 的@types/node 以匹配支持的 Node.js 版本 (W0066)"
+      },
       "0.5.0": {
         "en": "Added PV Power JSON statistics (daily, weekly, monthly) for VIS widget integration with optional cost calculation per kWh",
         "de": "Hinzugefügt PV Power JSON Statistiken (täglich, wöchentlich, monatlich) für VIS Widget Integration mit optionaler Kostenberechnung pro kWh",
@@ -80,19 +93,6 @@
         "pl": "Naprawiono błędy / ostrzeżenia",
         "uk": "Виправлено деякі помилки розфарбовування / пригнічення",
         "zh-cn": "修正一些错误/ 警告"
-      },
-      "0.2.1": {
-        "en": "Removed: React and mui",
-        "de": "Entfernt: React und mui",
-        "ru": "Оригинальное название: React and Mui",
-        "pt": "Removido: Reagir e mui",
-        "nl": "Verwijderd: Reageren en mui",
-        "fr": "Supprimé: Réagir et mui",
-        "it": "Rimuovi: React e mui",
-        "es": "Retirado: Reaccion y mui",
-        "pl": "Usunięty: React and mui",
-        "uk": "Вилучено: React та mui",
-        "zh-cn": "删除: 反应和 mui"
       }
     },
     "titleLang": {

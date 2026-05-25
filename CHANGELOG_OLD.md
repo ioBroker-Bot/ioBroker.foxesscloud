@@ -1,4 +1,7 @@
 # Older changes
+## 0.2.3 (2026-05-14)
+- (skvarel) Fixed issue from adapter checker
+
 ## 0.2.2 (2026-05-14)
 - (skvarel) Fixed some lint errors/warnings
 

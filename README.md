@@ -145,7 +145,7 @@ The language of date labels (day/week/month names) automatically adapts to your 
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.5.1 (2026-05-25)
 - (skvarel) Replaced process.env and process.exit usage in tools/api-test.js to fix compatibility issues reported by ioBroker repository checker (E5049, E5050)
 - (skvarel) Downgraded @types/node from ^25 to ^22 to match supported Node.js version (W0066)
 
@@ -162,9 +162,6 @@ The language of date labels (day/week/month names) automatically adapts to your 
 
 ### 0.3.0 (2026-05-19)
 - (skvarel) Added inverter internal temperature datapoint in °C
-
-### 0.2.3 (2026-05-14)
-- (skvarel) Fixed issue from adapter checker
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
