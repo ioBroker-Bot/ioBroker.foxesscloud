@@ -445,8 +445,8 @@ Ohne diese Aktualisierungen ist ein Feature nicht vollständig! Die Dokumentatio
 ```markdown
 ### **WORK IN PROGRESS**
 
-- (inventwo) Migrated real-time data query to new v1 API endpoint supporting multiple inverters
-- (inventwo) Added automatic device discovery from FoxESS Cloud account
+- (skvarel) Migrated real-time data query to new v1 API endpoint supporting multiple inverters
+- (skvarel) Added automatic device discovery from FoxESS Cloud account
 ```
 
 ### Changelog-Verwaltung
