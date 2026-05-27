@@ -4,16 +4,56 @@ This document lists all data points available from the FoxESS Cloud API based on
 
 ## Currently Implemented States
 
-The adapter currently implements these 8 states:
+### Real-time Power States (always created)
 
-- `pvPower` - PV Power (kW)
-- `generationPower` - Output Power (kW)
-- `SoC_1` - State of Charge (%)
-- `loads` - Load power consumption (kWh)
-- `gridConsumptionPower` - Grid Consumption Power (kW)
-- `feedinPower` - Feed-in Power (kW)
-- `batChargePower` - Charge Power (kW)
-- `batDischargePower` - Discharge Power (kW)
+| State ID | Description | Unit |
+|----------|-------------|------|
+| `pvPower` | PV Power | kW |
+| `generationPower` | Generation Power (Output) | kW |
+| `soc` | Battery State of Charge | % |
+| `load` | Load Power | kW |
+| `gridConsumption` | Grid Consumption Power (Importing) | kW |
+| `feedinPower` | Feed-in Power (Exporting) | kW |
+| `batCharge` | Battery Charge Power | kW |
+| `batDischarge` | Battery Discharge Power | kW |
+| `runningState` | Inverter Running State | - |
+
+### Dynamic States (lazy-created on first non-null value)
+
+| State ID | Description | Unit |
+|----------|-------------|------|
+| `pv1Power` … `pv24Power` | PV String 1–24 Power (only strings present on the device appear) | kW |
+| `invTemperature` | Inverter Internal Temperature | °C |
+| `batTemperature` | Battery Temperature | °C |
+
+### Energy Reporting States (optional, if *Enable energy reporting* is enabled)
+
+| State ID | Description | Unit |
+|----------|-------------|------|
+| `report.day.generation` | Today's PV Generation | kWh |
+| `report.day.feedin` | Today's Feed-in Energy | kWh |
+| `report.day.gridConsumption` | Today's Grid Consumption | kWh |
+| `report.week.generation` | This Week's PV Generation | kWh |
+| `report.week.feedin` | This Week's Feed-in Energy | kWh |
+| `report.week.gridConsumption` | This Week's Grid Consumption | kWh |
+| `report.month.generation` | This Month's PV Generation | kWh |
+| `report.month.feedin` | This Month's Feed-in Energy | kWh |
+| `report.month.gridConsumption` | This Month's Grid Consumption | kWh |
+| `report.year.generation` | This Year's PV Generation | kWh |
+| `report.year.feedin` | This Year's Feed-in Energy | kWh |
+| `report.year.gridConsumption` | This Year's Grid Consumption | kWh |
+| `report._baselines` | Internal baseline data (persisted across restarts) | JSON |
+
+Energy values are derived from the lifetime cumulative values returned by the API. On each period rollover (day/week/month/year) the current lifetime value is stored as a baseline; running totals are the difference between the current lifetime value and that baseline.
+
+### PV Power JSON Statistics States (optional, if *Enable PV Power JSON generation* is enabled)
+
+| State ID | Description | Unit |
+|----------|-------------|------|
+| `pvPowerJSON.daily` | Daily energy statistics for the current week (Mon–Sun) | JSON |
+| `pvPowerJSON.weekly` | Weekly energy statistics for all weeks in the current month | JSON |
+| `pvPowerJSON.monthly` | Monthly energy statistics for all 12 months of the current year | JSON |
+| `pvPowerJSON._runningState` | Internal running totals (persisted across restarts) | JSON |
 
 ## All Available Data Points
 
