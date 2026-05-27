@@ -6,6 +6,7 @@
     "Daily statistics": "Daily statistics",
     "Daily start value (kWh)": "Daily start value (kWh)",
     "Data Collection Options": "Data Collection Options",
+    "Enable energy reporting": "Enable energy reporting",
     "Enable PV Power JSON generation": "Enable PV Power JSON generation",
     "FoxESS Cloud API Configuration": "FoxESS Cloud API Configuration",
     "Generate daily energy data for the current week (Monday to Sunday)": "Generate daily energy data for the current week (Monday to Sunday)",
@@ -15,6 +16,7 @@
     "Inverter Serial Number": "Inverter Serial Number",
     "Monthly statistics": "Monthly statistics",
     "Monthly start value (kWh)": "Monthly start value (kWh)",
+    "Energy Reporting": "Energy Reporting",
     "extended_statistics_info_text": "Totals (day/week/month) are saved automatically after each poll and restored when the adapter restarts – there is no need to manually clear or adjust the start values in the config. The start values in the config are only applied on the very first start of this instance. For long-term historical data, please use iobroker.history or iobroker.influxdb.",
     "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display": "Optional: Enter price per kWh for cost calculations. Leave empty or 0 to disable price display",
     "start_value_daily_help": "Optional start value for today – applied only on the very first start of this instance. Afterwards, totals are saved automatically and restored after every restart.",
@@ -26,9 +28,12 @@
     "Seriennummer vom Inverter": "Serial number of the inverter",
     "Initial Start Values (one-time only)": "Initial Start Values (one-time only)",
     "tab_general": "General",
+    "tab_reporting": "Reporting",
     "tab_statistics": "Statistics",
     "Update Interval (seconds)": "Update Interval (seconds)",
     "Weekly start value (kWh)": "Weekly start value (kWh)",
     "Weekly statistics": "Weekly statistics",
+    "enable_reporting_help": "Calculate daily, weekly, monthly and yearly energy totals for generation, feed-in and grid consumption. Values are derived from the lifetime counters provided by the FoxESS API.",
+    "reporting_info_text": "Report states are created under report.day.*, report.week.*, report.month.* and report.year.*. The baselines are saved automatically after each poll and restored after every restart – no manual configuration required.",
     "instance_info_text": "For an additional inverter, please create a new instance. Only one serial number can be specified per instance."
 }

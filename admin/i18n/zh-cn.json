@@ -7,6 +7,8 @@
     "Daily statistics": "每日统计",
     "Data Collection Options": "数据收集选项",
     "Enable PV Power JSON generation": "启用光伏发电 JSON 生成",
+    "Enable energy reporting": "启用能源报告",
+    "Energy Reporting": "能源报告",
     "FoxESS Cloud API Configuration": "FoxESS云API配置",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "为 VIS 小部件生成每日（本周）、每周（当月）和每月（当年）光伏发电数据的 JSON 表",
     "Generate daily energy data for the current week (Monday to Sunday)": "生成本周（周一至周日）的每日能源数据",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "更新间隔（秒）",
     "Weekly start value (kWh)": "每周起始值（kWh）",
     "Weekly statistics": "每周统计",
+    "enable_reporting_help": "计算每日、每周、每月和每年的发电、馈入和电网消耗的能源总量。值源自 FoxESS API 提供的生命周期计数器。",
     "extended_statistics_info_text": "每次轮询后都会自动保存总计（日/周/月），并在适配器重新启动时恢复 – 无需手动清除或调整配置中的起始值。配置中的起始值仅应用于此实例的第一次启动。对于长期历史数据，请使用iobroker.history或iobroker.influxdb。",
     "instance_info_text": "如需额外的逆变器，请创建一个新实例。每个实例只能指定一个序列号。",
+    "reporting_info_text": "报告状态在report.day.*、report.week.*、report.month.* 和report.year.* 下创建。每次轮询后都会自动保存基线，并在每次重新启动后恢复 - 无需手动配置。",
     "start_value_daily_help": "今天的可选起始值 – 仅应用于此实例的第一次启动。此后，总计会自动保存并在每次重新启动后恢复。",
     "start_value_monthly_help": "当月的可选起始值 – 仅应用于此实例的第一次启动。此后，总计会自动保存并在每次重新启动后恢复。",
     "start_value_weekly_help": "本周的可选起始值 – 仅应用于此实例的第一次启动。此后，总计会自动保存并在每次重新启动后恢复。",
     "tab_general": "一般的",
+    "tab_reporting": "报告",
     "tab_statistics": "统计数据"
 }

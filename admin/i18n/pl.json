@@ -7,6 +7,8 @@
     "Daily statistics": "Dzienne statystyki",
     "Data Collection Options": "Opcje gromadzenia danych",
     "Enable PV Power JSON generation": "Włącz generowanie JSON mocy fotowoltaicznej",
+    "Enable energy reporting": "Włącz raportowanie zużycia energii",
+    "Energy Reporting": "Raportowanie energetyczne",
     "FoxESS Cloud API Configuration": "Konfiguracja API chmury FoxESS",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Generuj tabele JSON dla dziennych (bieżący tydzień), tygodniowych (bieżący miesiąc) i miesięcznych (bieżący rok) danych mocy PV dla widżetów VIS",
     "Generate daily energy data for the current week (Monday to Sunday)": "Generuj dzienne dane dotyczące energii w bieżącym tygodniu (od poniedziałku do niedzieli)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Interwał aktualizacji (sekundy)",
     "Weekly start value (kWh)": "Tygodniowa wartość początkowa (kWh)",
     "Weekly statistics": "Tygodniowe statystyki",
+    "enable_reporting_help": "Oblicz dzienne, tygodniowe, miesięczne i roczne sumy energii dla wytwarzania, dostarczania i zużycia sieci. Wartości pochodzą z liczników czasu istnienia udostępnianych przez API FoxESS.",
     "extended_statistics_info_text": "Sumy (dzień/tydzień/miesiąc) są zapisywane automatycznie po każdym odpytywaniu i przywracane po ponownym uruchomieniu adaptera – nie ma potrzeby ręcznego czyszczenia ani dostosowywania wartości początkowych w konfiguracji. Wartości początkowe w konfiguracji są stosowane tylko przy pierwszym uruchomieniu tej instancji. W przypadku długoterminowych danych historycznych należy skorzystać z pliku iobroker.history lub iobroker.influxdb.",
     "instance_info_text": "W przypadku dodatkowego falownika utwórz nową instancję. Dla każdej instancji można określić tylko jeden numer seryjny.",
+    "reporting_info_text": "Stany raportów tworzone są w pozycjach raport.dzień.*, raport.tydzień.*, raport.miesiąc.* i raport.rok.*. Wartości bazowe są zapisywane automatycznie po każdym odpytywaniu i przywracane po każdym ponownym uruchomieniu — nie jest wymagana ręczna konfiguracja.",
     "start_value_daily_help": "Opcjonalna wartość początkowa na dzisiaj – stosowana tylko przy pierwszym uruchomieniu tej instancji. Następnie sumy są zapisywane automatycznie i przywracane po każdym ponownym uruchomieniu.",
     "start_value_monthly_help": "Opcjonalna wartość początkowa dla bieżącego miesiąca – stosowana tylko przy pierwszym uruchomieniu tej instancji. Następnie sumy są zapisywane automatycznie i przywracane po każdym ponownym uruchomieniu.",
     "start_value_weekly_help": "Opcjonalna wartość początkowa na bieżący tydzień – stosowana tylko przy pierwszym uruchomieniu tej instancji. Następnie sumy są zapisywane automatycznie i przywracane po każdym ponownym uruchomieniu.",
     "tab_general": "Ogólny",
+    "tab_reporting": "Raportowanie",
     "tab_statistics": "Statystyka"
 }

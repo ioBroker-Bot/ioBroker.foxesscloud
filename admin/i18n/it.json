@@ -7,6 +7,8 @@
     "Daily statistics": "Statistiche giornaliere",
     "Data Collection Options": "Opzioni di raccolta dati",
     "Enable PV Power JSON generation": "Abilita la generazione JSON di PV Power",
+    "Enable energy reporting": "Abilita il reporting energetico",
+    "Energy Reporting": "Reporting energetico",
     "FoxESS Cloud API Configuration": "Configurazione API FoxESS Cloud",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Genera tabelle JSON per i dati di potenza FV giornalieri (settimana corrente), settimanali (mese corrente) e mensili (anno corrente) per i widget VIS",
     "Generate daily energy data for the current week (Monday to Sunday)": "Genera dati energetici giornalieri per la settimana corrente (dal lunedì alla domenica)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Intervallo di aggiornamento (secondi)",
     "Weekly start value (kWh)": "Valore iniziale settimanale (kWh)",
     "Weekly statistics": "Statistiche settimanali",
+    "enable_reporting_help": "Calcola i totali energetici giornalieri, settimanali, mensili e annuali per la generazione, l'immissione in rete e il consumo di rete. I valori derivano dai contatori della durata forniti dall'API FoxESS.",
     "extended_statistics_info_text": "I totali (giorno/settimana/mese) vengono salvati automaticamente dopo ogni sondaggio e ripristinati al riavvio dell'adattatore: non è necessario cancellare o regolare manualmente i valori iniziali nella configurazione. I valori iniziali nella configurazione vengono applicati solo al primo avvio di questa istanza. Per i dati storici a lungo termine, utilizzare iobroker.history o iobroker.influxdb.",
     "instance_info_text": "Per un inverter aggiuntivo, creare una nuova istanza. È possibile specificare un solo numero di serie per istanza.",
+    "reporting_info_text": "Gli stati del report vengono creati in report.day.*, report.week.*, report.month.* e report.year.*. Le linee di base vengono salvate automaticamente dopo ogni sondaggio e ripristinate dopo ogni riavvio: non è richiesta alcuna configurazione manuale.",
     "start_value_daily_help": "Valore iniziale facoltativo per oggi: applicato solo al primo avvio di questa istanza. Successivamente, i totali vengono salvati automaticamente e ripristinati dopo ogni riavvio.",
     "start_value_monthly_help": "Valore iniziale facoltativo per il mese corrente: applicato solo al primo avvio di questa istanza. Successivamente, i totali vengono salvati automaticamente e ripristinati dopo ogni riavvio.",
     "start_value_weekly_help": "Valore iniziale facoltativo per la settimana corrente: applicato solo al primo avvio di questa istanza. Successivamente, i totali vengono salvati automaticamente e ripristinati dopo ogni riavvio.",
     "tab_general": "Generale",
+    "tab_reporting": "Segnalazione",
     "tab_statistics": "Statistiche"
 }

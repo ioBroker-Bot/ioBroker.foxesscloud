@@ -201,6 +201,47 @@
                     }
                 }
             }
+        },
+        "_reporting": {
+            "type": "panel",
+            "label": "tab_reporting",
+            "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNOSwxN0g3VjEwSDlWMTdNMTMsMTdIMTFWN0gxM1YxN00xNywxN0gxNVYxM0gxN1YxN00xOSwzSDVDMy44OSwzIDMsMy44OSAzLDVWMTlDMywyMC4xMSAzLjg5LDIxIDUsMjFIMTlDMjAuMTEsMjEgMjEsMjAuMTEgMjEsMTlWNUMyMSwzLjg5IDIwLjExLDMgMTksMloiLz48L3N2Zz4=",
+            "items": {
+                "_reportingHeader": {
+                    "type": "header",
+                    "text": "Energy Reporting",
+                    "size": 3
+                },
+                "enableReporting": {
+                    "type": "checkbox",
+                    "label": "Enable energy reporting",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "help": "enable_reporting_help"
+                },
+                "_infoBox3": {
+                    "type": "staticText",
+                    "text": "reporting_info_text",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "style": {
+                        "fontSize": "0.875rem",
+                        "whiteSpace": "pre-wrap",
+                        "marginTop": "20px",
+                        "padding": "10px 14px",
+                        "border": "1px solid #546e7a",
+                        "borderRadius": "6px",
+                        "backgroundColor": "rgba(84, 110, 122, 0.12)"
+                    }
+                }
+            }
         }
     }
 }

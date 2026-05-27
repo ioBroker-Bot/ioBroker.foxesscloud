@@ -7,6 +7,8 @@
     "Daily statistics": "Estatísticas diárias",
     "Data Collection Options": "Opções de coleta de dados",
     "Enable PV Power JSON generation": "Habilitar geração JSON do PV Power",
+    "Enable energy reporting": "Ativar relatórios de energia",
+    "Energy Reporting": "Relatórios de Energia",
     "FoxESS Cloud API Configuration": "Configuração da API de nuvem FoxESS",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Gere tabelas JSON para dados de energia fotovoltaica diários (semana atual), semanais (mês atual) e mensais (ano atual) para widgets VIS",
     "Generate daily energy data for the current week (Monday to Sunday)": "Gere dados diários de energia para a semana atual (segunda a domingo)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Intervalo de atualização (segundos)",
     "Weekly start value (kWh)": "Valor inicial semanal (kWh)",
     "Weekly statistics": "Estatísticas semanais",
+    "enable_reporting_help": "Calcule os totais de energia diários, semanais, mensais e anuais para geração, alimentação e consumo da rede. Os valores são derivados dos contadores de tempo de vida fornecidos pela API FoxESS.",
     "extended_statistics_info_text": "Os totais (dia/semana/mês) são salvos automaticamente após cada pesquisa e restaurados quando o adaptador é reiniciado – não há necessidade de limpar ou ajustar manualmente os valores iniciais na configuração. Os valores iniciais na configuração são aplicados apenas na primeira inicialização desta instância. Para dados históricos de longo prazo, use iobroker.history ou iobroker.influxdb.",
     "instance_info_text": "Para um inversor adicional, crie uma nova instância. Apenas um número de série pode ser especificado por instância.",
+    "reporting_info_text": "Os estados do relatório são criados em report.day.*, report.week.*, report.month.* e report.year.*. As linhas de base são salvas automaticamente após cada pesquisa e restauradas após cada reinicialização – sem necessidade de configuração manual.",
     "start_value_daily_help": "Valor inicial opcional para hoje – aplicado somente na primeira inicialização desta instância. Posteriormente, os totais são salvos automaticamente e restaurados após cada reinicialização.",
     "start_value_monthly_help": "Valor inicial opcional para o mês atual – aplicado somente na primeira inicialização desta instância. Posteriormente, os totais são salvos automaticamente e restaurados após cada reinicialização.",
     "start_value_weekly_help": "Valor inicial opcional para a semana atual – aplicado somente na primeira inicialização desta instância. Posteriormente, os totais são salvos automaticamente e restaurados após cada reinicialização.",
     "tab_general": "Em geral",
+    "tab_reporting": "Relatórios",
     "tab_statistics": "Estatísticas"
 }

@@ -7,6 +7,8 @@
     "Daily statistics": "Estadísticas diarias",
     "Data Collection Options": "Opciones de recopilación de datos",
     "Enable PV Power JSON generation": "Habilitar la generación JSON de energía fotovoltaica",
+    "Enable energy reporting": "Habilitar informes de energía",
+    "Energy Reporting": "Informes energéticos",
     "FoxESS Cloud API Configuration": "Configuración de la API de la nube FoxESS",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Genere tablas JSON para datos de energía fotovoltaica diaria (semana actual), semanal (mes actual) y mensual (año actual) para widgets VIS.",
     "Generate daily energy data for the current week (Monday to Sunday)": "Generar datos de energía diarios para la semana actual (de lunes a domingo)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Intervalo de actualización (segundos)",
     "Weekly start value (kWh)": "Valor inicial semanal (kWh)",
     "Weekly statistics": "Estadísticas semanales",
+    "enable_reporting_help": "Calcule los totales de energía diarios, semanales, mensuales y anuales para generación, inyección y consumo de red. Los valores se derivan de los contadores de vida proporcionados por la API de FoxESS.",
     "extended_statistics_info_text": "Los totales (día/semana/mes) se guardan automáticamente después de cada sondeo y se restauran cuando se reinicia el adaptador; no es necesario borrar ni ajustar manualmente los valores iniciales en la configuración. Los valores de inicio en la configuración solo se aplican en el primer inicio de esta instancia. Para obtener datos históricos a largo plazo, utilice iobroker.history o iobroker.influxdb.",
     "instance_info_text": "Para un inversor adicional, cree una nueva instancia. Solo se puede especificar un número de serie por instancia.",
+    "reporting_info_text": "Los estados del informe se crean en el día del informe.*, la semana.del informe.*, el mes.del informe.* y el año.del.informe.*. Las líneas de base se guardan automáticamente después de cada sondeo y se restauran después de cada reinicio; no se requiere configuración manual.",
     "start_value_daily_help": "Valor de inicio opcional para hoy: se aplica solo en el primer inicio de esta instancia. Posteriormente, los totales se guardan automáticamente y se restauran después de cada reinicio.",
     "start_value_monthly_help": "Valor de inicio opcional para el mes actual: se aplica solo en el primer inicio de esta instancia. Posteriormente, los totales se guardan automáticamente y se restauran después de cada reinicio.",
     "start_value_weekly_help": "Valor de inicio opcional para la semana actual: se aplica solo en el primer inicio de esta instancia. Posteriormente, los totales se guardan automáticamente y se restauran después de cada reinicio.",
     "tab_general": "General",
+    "tab_reporting": "Informes",
     "tab_statistics": "Estadística"
 }

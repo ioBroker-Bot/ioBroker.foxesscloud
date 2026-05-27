@@ -8,6 +8,326 @@ const utils = require("@iobroker/adapter-core");
 const https = require("node:https");
 const crypto = require("node:crypto");
 
+const STATE_NAMES = {
+	// --- Real-time power states ---
+	pvPower: {
+		en: "PV Power",
+		de: "PV-Leistung",
+		ru: "Мощность ФЭС",
+		pt: "Potência FV",
+		nl: "PV-vermogen",
+		fr: "Puissance PV",
+		it: "Potenza FV",
+		es: "Potencia FV",
+		pl: "Moc PV",
+		uk: "Потужність ФЕС",
+		"zh-cn": "光伏功率",
+	},
+	generationPower: {
+		en: "Generation Power (Output)",
+		de: "Erzeugungsleistung (Ausgang)",
+		ru: "Вырабатываемая мощность (выходная)",
+		pt: "Potência de geração (saída)",
+		nl: "Opwekkingsvermogen (output)",
+		fr: "Puissance de production (sortie)",
+		it: "Potenza di generazione (uscita)",
+		es: "Generación de potencia (salida)",
+		pl: "Moc generowana (wyjście)",
+		uk: "Генерована потужність (вихідна)",
+		"zh-cn": "发电功率（输出）",
+	},
+	soc: {
+		en: "Battery State of Charge",
+		de: "Batterie-Ladezustand",
+		ru: "Уровень заряда батареи",
+		pt: "Estado de carga da bateria",
+		nl: "Batterijlaadstatus",
+		fr: "État de charge de la batterie",
+		it: "Stato di carica della batteria",
+		es: "Estado de carga de la batería",
+		pl: "Stan naładowania baterii",
+		uk: "Стан заряду акумулятора",
+		"zh-cn": "电池电量",
+	},
+	load: {
+		en: "Load Power",
+		de: "Verbrauchsleistung",
+		ru: "Потребляемая мощность",
+		pt: "Potência de carga",
+		nl: "Verbruiksvermogen",
+		fr: "Puissance de charge",
+		it: "Potenza di carico",
+		es: "Potencia de carga",
+		pl: "Moc obciążenia",
+		uk: "Потужність навантаження",
+		"zh-cn": "负载功率",
+	},
+	gridConsumption: {
+		en: "Grid Consumption Power (Importing)",
+		de: "Netzbezugsleistung (Import)",
+		ru: "Потребление электроэнергии из сети (импорт)",
+		pt: "Consumo de energia da rede (importação)",
+		nl: "Stroomverbruik via het net (import)",
+		fr: "Consommation électrique du réseau (importation)",
+		it: "Consumo di energia dalla rete (importazione)",
+		es: "Consumo de energía de la red (importación)",
+		pl: "Zużycie energii w sieci (import)",
+		uk: "Споживання електроенергії з мережі (імпорт)",
+		"zh-cn": "电网消耗功率（进口）",
+	},
+	feedinPower: {
+		en: "Feed-in Power (Exporting)",
+		de: "Einspeiseleistung (Export)",
+		ru: "Поставка электроэнергии в сеть (экспорт)",
+		pt: "Energia de injeção na rede (exportação)",
+		nl: "Teruglevering van elektriciteit (export)",
+		fr: "Puissance injectée (exportation)",
+		it: "Energia immessa (esportazione)",
+		es: "Energía de alimentación (exportación)",
+		pl: "Moc dostarczona (eksport)",
+		uk: "Потужність живлення (експорт)",
+		"zh-cn": "并网电力（出口）",
+	},
+	batCharge: {
+		en: "Battery Charge Power",
+		de: "Batterie-Ladeleistung",
+		ru: "Зарядка аккумулятора",
+		pt: "Energia de carregamento da bateria",
+		nl: "Batterijlaadvermogen",
+		fr: "Puissance de charge de la batterie",
+		it: "Potenza di carica della batteria",
+		es: "Potencia de carga de la batería",
+		pl: "Moc ładowania akumulatora",
+		uk: "Потужність заряду акумулятора",
+		"zh-cn": "电池充电功率",
+	},
+	batDischarge: {
+		en: "Battery Discharge Power",
+		de: "Batterie-Entladeleistung",
+		ru: "Мощность разряда батареи",
+		pt: "Potência de descarga da bateria",
+		nl: "Batterijontladingsvermogen",
+		fr: "Puissance de décharge de la batterie",
+		it: "Potenza di scarica della batteria",
+		es: "Potencia de descarga de la batería",
+		pl: "Moc rozładowania akumulatora",
+		uk: "Потужність розряду акумулятора",
+		"zh-cn": "电池放电功率",
+	},
+	invTemperature: {
+		en: "Inverter Internal Temperature",
+		de: "Interne Wechselrichtertemperatur",
+		ru: "Внутренняя температура инвертора",
+		pt: "Temperatura interna do inversor",
+		nl: "Interne omvormertemperatuur",
+		fr: "Temperature interne de l'onduleur",
+		it: "Temperatura interna dell'inverter",
+		es: "Temperatura interna del inversor",
+		pl: "Wewnętrzna temperatura falownika",
+		uk: "Внутрішня температура інвертора",
+		"zh-cn": "逆变器内部温度",
+	},
+	runningState: {
+		en: "Running State",
+		de: "Betriebszustand",
+		ru: "Рабочее состояние",
+		pt: "Estado de funcionamento",
+		nl: "Bedrijfsstatus",
+		fr: "État de fonctionnement",
+		it: "Stato operativo",
+		es: "Estado de funcionamiento",
+		pl: "Stan pracy",
+		uk: "Робочий стан",
+		"zh-cn": "运行状态",
+	},
+	batTemperature: {
+		en: "Battery Temperature",
+		de: "Batterietemperatur",
+		ru: "Температура батареи",
+		pt: "Temperatura da bateria",
+		nl: "Batterijtemperatuur",
+		fr: "Température de la batterie",
+		it: "Temperatura della batteria",
+		es: "Temperatura de la batería",
+		pl: "Temperatura akumulatora",
+		uk: "Температура акумулятора",
+		"zh-cn": "电池温度",
+	},
+	// --- PV string power (template — {n} replaced at runtime) ---
+	pvStringPower: {
+		en: "PV String {n} Power",
+		de: "PV-String {n} Leistung",
+		ru: "Мощность PV-строки {n}",
+		pt: "Potência do string PV {n}",
+		nl: "PV-string {n} vermogen",
+		fr: "Puissance chaîne PV {n}",
+		it: "Potenza stringa PV {n}",
+		es: "Potencia cadena FV {n}",
+		pl: "Moc łańcucha PV {n}",
+		uk: "Потужність рядка PV {n}",
+		"zh-cn": "PV 串列 {n} 功率",
+	},
+	// --- PV Power JSON statistics ---
+	pvPowerJsonDaily: {
+		en: "Daily PV Power Statistics (JSON)",
+		de: "Tägliche PV-Leistungsstatistiken (JSON)",
+		ru: "Ежедневная статистика мощности ФЭС (JSON)",
+		pt: "Estatísticas diárias de potência FV (JSON)",
+		nl: "Dagelijkse PV-vermogensstatistieken (JSON)",
+		fr: "Statistiques quotidiennes de puissance PV (JSON)",
+		it: "Statistiche giornaliere di potenza FV (JSON)",
+		es: "Estadísticas diarias de potencia FV (JSON)",
+		pl: "Dzienne statystyki mocy PV (JSON)",
+		uk: "Щоденна статистика потужності ФЕС (JSON)",
+		"zh-cn": "每日光伏功率统计 (JSON)",
+	},
+	pvPowerJsonWeekly: {
+		en: "Weekly PV Power Statistics (JSON)",
+		de: "Wöchentliche PV-Leistungsstatistiken (JSON)",
+		ru: "Еженедельная статистика мощности ФЭС (JSON)",
+		pt: "Estatísticas semanais de potência FV (JSON)",
+		nl: "Wekelijkse PV-vermogensstatistieken (JSON)",
+		fr: "Statistiques hebdomadaires de puissance PV (JSON)",
+		it: "Statistiche settimanali di potenza FV (JSON)",
+		es: "Estadísticas semanales de potencia FV (JSON)",
+		pl: "Tygodniowe statystyki mocy PV (JSON)",
+		uk: "Щотижнева статистика потужності ФЕС (JSON)",
+		"zh-cn": "每周光伏功率统计 (JSON)",
+	},
+	pvPowerJsonMonthly: {
+		en: "Monthly PV Power Statistics (JSON)",
+		de: "Monatliche PV-Leistungsstatistiken (JSON)",
+		ru: "Ежемесячная статистика мощности ФЭС (JSON)",
+		pt: "Estatísticas mensais de potência FV (JSON)",
+		nl: "Maandelijkse PV-vermogensstatistieken (JSON)",
+		fr: "Statistiques mensuelles de puissance PV (JSON)",
+		it: "Statistiche mensili di potenza FV (JSON)",
+		es: "Estadísticas mensuales de potencia FV (JSON)",
+		pl: "Miesięczne statystyki mocy PV (JSON)",
+		uk: "Щомісячна статистика потужності ФЕС (JSON)",
+		"zh-cn": "每月光伏功率统计 (JSON)",
+	},
+	pvPowerJsonRunningState: {
+		en: "PV Power Statistics Running State (internal)",
+		de: "PV-Statistiken Laufzustand (intern)",
+		ru: "Текущее состояние статистики ФЭС (внутр.)",
+		pt: "Estado em execução das estatísticas FV (interno)",
+		nl: "Lopende status PV-statistieken (intern)",
+		fr: "État en cours des statistiques PV (interne)",
+		it: "Stato corrente statistiche FV (interno)",
+		es: "Estado en ejecución de estadísticas FV (interno)",
+		pl: "Bieżący stan statystyk PV (wewnętrzny)",
+		uk: "Поточний стан статистики ФЕС (внутр.)",
+		"zh-cn": "光伏统计运行状态（内部）",
+	},
+	// --- Report period prefixes ---
+	reportPeriodDay: {
+		en: "Today",
+		de: "Heute",
+		ru: "Сегодня",
+		pt: "Hoje",
+		nl: "Vandaag",
+		fr: "Aujourd'hui",
+		it: "Oggi",
+		es: "Hoy",
+		pl: "Dzisiaj",
+		uk: "Сьогодні",
+		"zh-cn": "今天",
+	},
+	reportPeriodWeek: {
+		en: "This Week",
+		de: "Diese Woche",
+		ru: "Эта неделя",
+		pt: "Esta semana",
+		nl: "Deze week",
+		fr: "Cette semaine",
+		it: "Questa settimana",
+		es: "Esta semana",
+		pl: "Ten tydzień",
+		uk: "Цей тиждень",
+		"zh-cn": "本周",
+	},
+	reportPeriodMonth: {
+		en: "This Month",
+		de: "Dieser Monat",
+		ru: "Этот месяц",
+		pt: "Este mês",
+		nl: "Deze maand",
+		fr: "Ce mois-ci",
+		it: "Questo mese",
+		es: "Este mes",
+		pl: "Ten miesiąc",
+		uk: "Цей місяць",
+		"zh-cn": "本月",
+	},
+	reportPeriodYear: {
+		en: "This Year",
+		de: "Dieses Jahr",
+		ru: "Этот год",
+		pt: "Este ano",
+		nl: "Dit jaar",
+		fr: "Cette année",
+		it: "Quest'anno",
+		es: "Este año",
+		pl: "Ten rok",
+		uk: "Цей рік",
+		"zh-cn": "今年",
+	},
+	// --- Report variable names ---
+	reportGeneration: {
+		en: "PV Generation",
+		de: "PV-Erzeugung",
+		ru: "Выработка ФЭС",
+		pt: "Geração FV",
+		nl: "PV-opwekking",
+		fr: "Production PV",
+		it: "Generazione FV",
+		es: "Generación FV",
+		pl: "Generacja PV",
+		uk: "Виробництво ФЕС",
+		"zh-cn": "光伏发电量",
+	},
+	reportFeedin: {
+		en: "Feed-in Energy",
+		de: "Eingespeiste Energie",
+		ru: "Отданная в сеть энергия",
+		pt: "Energia injetada",
+		nl: "Teruggeleverde energie",
+		fr: "Énergie injectée",
+		it: "Energia immessa",
+		es: "Energía inyectada",
+		pl: "Energia oddana do sieci",
+		uk: "Енергія, відданa в мережу",
+		"zh-cn": "馈入电量",
+	},
+	reportGridConsumption: {
+		en: "Grid Consumption",
+		de: "Netzbezug",
+		ru: "Потребление из сети",
+		pt: "Consumo da rede",
+		nl: "Netverbruik",
+		fr: "Consommation réseau",
+		it: "Consumo dalla rete",
+		es: "Consumo de red",
+		pl: "Zużycie z sieci",
+		uk: "Споживання з мережі",
+		"zh-cn": "电网消耗",
+	},
+	reportBaselines: {
+		en: "Report Baselines (internal)",
+		de: "Berichts-Baselines (intern)",
+		ru: "Базовые значения отчёта (внутр.)",
+		pt: "Linhas de base do relatório (interno)",
+		nl: "Rapportage basiswaarden (intern)",
+		fr: "Valeurs de base du rapport (interne)",
+		it: "Valori base report (interno)",
+		es: "Valores base del informe (interno)",
+		pl: "Wartości bazowe raportu (wewnętrzne)",
+		uk: "Базові значення звіту (внутр.)",
+		"zh-cn": "报告基线（内部）",
+	},
+};
+
 class Foxesscloud extends utils.Adapter {
 	/**
 	 * @param {Partial<utils.AdapterOptions>} [options] - Adapter options
@@ -23,6 +343,19 @@ class Foxesscloud extends utils.Adapter {
 		this.updateInterval = null;
 		this.systemLanguage = "en";
 		this.lastTempWarningLevel = 0;
+		this.createdPvStates = new Set();
+
+		// Baselines for report delta calculations (lifetime values at period start)
+		this.reportBaselines = {
+			dayKey: null,
+			weekKey: null,
+			monthKey: null,
+			yearKey: null,
+			day: { generation: null, feedin: null, gridConsumption: null },
+			week: { generation: null, feedin: null, gridConsumption: null },
+			month: { generation: null, feedin: null, gridConsumption: null },
+			year: { generation: null, feedin: null, gridConsumption: null },
+		};
 
 		// PV Power JSON tracking
 		this.pvPowerJsonData = {
@@ -36,6 +369,62 @@ class Foxesscloud extends utils.Adapter {
 		this.lastUpdateDate = null;
 		this.lastUpdateWeek = null;
 		this.lastUpdateMonth = null;
+	}
+
+	/**
+	 * Make an authenticated HTTPS request to the FoxESS Cloud API.
+	 *
+	 * @param {string} path - API path, e.g. "/op/v0/device/real/query"
+	 * @param {"GET"|"POST"} method - HTTP method
+	 * @param {object} bodyObject - Request body (will be JSON-stringified)
+	 * @returns {Promise<object>} Parsed JSON response
+	 */
+	makeApiRequest(path, method, bodyObject) {
+		return new Promise((resolve, reject) => {
+			const body = JSON.stringify(bodyObject);
+			const milliseconds = Date.now();
+			// WICHTIG: Die Signatur verwendet buchstäbliche Zeichen "\\r\\n", NICHT echte Zeilenumbrüche!
+			const signatureString = `${path}\\r\\n${this.config.token}\\r\\n${milliseconds}`;
+			const signature = crypto.createHash("md5").update(signatureString).digest("hex");
+
+			const options = {
+				hostname: "www.foxesscloud.com",
+				port: 443,
+				path: path,
+				method: method,
+				headers: {
+					"Content-Type": "application/json",
+					token: this.config.token,
+					timestamp: milliseconds,
+					signature: signature,
+					lang: "en",
+				},
+			};
+
+			const req = https.request(options, res => {
+				res.setEncoding("utf8");
+				let data = "";
+				res.on("data", chunk => (data += chunk));
+				res.on("end", () => {
+					if (!data) {
+						reject(new Error("Empty response from API"));
+						return;
+					}
+					try {
+						resolve(JSON.parse(data));
+					} catch (e) {
+						reject(
+							new Error(`Failed to parse API response: ${e instanceof Error ? e.message : String(e)}`),
+						);
+					}
+				});
+				res.on("error", reject);
+			});
+
+			req.on("error", reject);
+			req.write(body);
+			req.end();
+		});
 	}
 
 	/**
@@ -71,6 +460,9 @@ class Foxesscloud extends utils.Adapter {
 
 		// Create states
 		await this.createStates();
+		if (this.config.enableReporting) {
+			await this.restoreReportBaselines();
+		}
 
 		// Get interval from config (default 60 seconds, minimum 60 seconds, maximum 2_147_483_647 ms)
 		let intervalSeconds = Math.max(60, this.config.interval || 60);
@@ -97,19 +489,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("pvPower", {
 			type: "state",
 			common: {
-				name: {
-					en: "PV Power",
-					de: "PV-Leistung",
-					ru: "Нагрузка на мощность",
-					pt: "Potência de carga",
-					nl: "Belastingsvermogen",
-					fr: "Puissance de charge",
-					it: "Potenza di carico",
-					es: "Potencia de carga",
-					pl: "Moc obciążenia",
-					uk: "Потужність навантаження",
-					"zh-cn": "负载功率",
-				},
+				name: STATE_NAMES.pvPower,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -122,19 +502,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("generationPower", {
 			type: "state",
 			common: {
-				name: {
-					en: "Generation Power (Output)",
-					de: "Erzeugungsleistung (Ausgang)",
-					ru: "Вырабатываемая мощность (выходная)",
-					pt: "Potência de geração (saída)",
-					nl: "Opwekkingsvermogen (output)",
-					fr: "Puissance de production (sortie)",
-					it: "Potenza di generazione (uscita)",
-					es: "Generación de potencia (salida)",
-					pl: "Moc generowana (wyjście)",
-					uk: "Генерована потужність (вихідна)",
-					"zh-cn": "发电功率（输出）",
-				},
+				name: STATE_NAMES.generationPower,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -147,19 +515,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("soc", {
 			type: "state",
 			common: {
-				name: {
-					en: "Battery State of Charge",
-					de: "Batterie-Ladezustand",
-					ru: "Уровень заряда батареи",
-					pt: "Estado de carga da bateria",
-					nl: "Batterijlaadstatus",
-					fr: "État de charge de la batterie",
-					it: "Stato di carica della batteria",
-					es: "Estado de carga de la batería",
-					pl: "Stan naładowania baterii",
-					uk: "Стан заряду акумулятора",
-					"zh-cn": "电池电量",
-				},
+				name: STATE_NAMES.soc,
 				type: "number",
 				role: "value.battery",
 				unit: "%",
@@ -172,19 +528,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("load", {
 			type: "state",
 			common: {
-				name: {
-					en: "Load Power",
-					de: "Verbrauchsleistung",
-					ru: "Нагрузка на мощность",
-					pt: "Potência de carga",
-					nl: "Belastingsvermogen",
-					fr: "Puissance de charge",
-					it: "Potenza di carico",
-					es: "Potencia de carga",
-					pl: "Moc obciążenia",
-					uk: "Потужність навантаження",
-					"zh-cn": "负载功率",
-				},
+				name: STATE_NAMES.load,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -197,19 +541,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("gridConsumption", {
 			type: "state",
 			common: {
-				name: {
-					en: "Grid Consumption Power (Importing)",
-					de: "Netzbezugsleistung (Import)",
-					ru: "Потребление электроэнергии из сети (импорт)",
-					pt: "Consumo de energia da rede (importação)",
-					nl: "Stroomverbruik via het net (import)",
-					fr: "Consommation électrique du réseau (importation)",
-					it: "Consumo di energia dalla rete (importazione)",
-					es: "Consumo de energía de la red (importación)",
-					pl: "Zużycie energii w sieci (import)",
-					uk: "Споживання електроенергії з мережі (імпорт)",
-					"zh-cn": "电网消耗功率（进口）",
-				},
+				name: STATE_NAMES.gridConsumption,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -222,19 +554,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("feedinPower", {
 			type: "state",
 			common: {
-				name: {
-					en: "Feed-in Power (Exporting)",
-					de: "Einspeiseleistung (Export)",
-					ru: "Поставка электроэнергии в сеть (экспорт)",
-					pt: "Energia de injeção na rede (exportação)",
-					nl: "Teruglevering van elektriciteit (export)",
-					fr: "Puissance injectée (exportation)",
-					it: "Energia immessa (esportazione)",
-					es: "Energía de alimentación (exportación)",
-					pl: "Moc dostarczona (eksport)",
-					uk: "Потужність живлення (експорт)",
-					"zh-cn": "并网电力（出口）",
-				},
+				name: STATE_NAMES.feedinPower,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -247,19 +567,7 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("batCharge", {
 			type: "state",
 			common: {
-				name: {
-					en: "Battery Charge Power",
-					de: "Batterie-Ladeleistung",
-					ru: "Зарядка аккумулятора",
-					pt: "Energia de carregamento da bateria",
-					nl: "Batterijlaadvermogen",
-					fr: "Puissance de charge de la batterie",
-					it: "Potenza di carica della batteria",
-					es: "Potencia de carga de la batería",
-					pl: "Moc ładowania akumulatora",
-					uk: "Потужність заряду акумулятора",
-					"zh-cn": "电池充电功率",
-				},
+				name: STATE_NAMES.batCharge,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
@@ -272,47 +580,10 @@ class Foxesscloud extends utils.Adapter {
 		await this.setObjectNotExistsAsync("batDischarge", {
 			type: "state",
 			common: {
-				name: {
-					en: "Battery Discharge Power",
-					de: "Batterie-Entladeleistung",
-					ru: "Мощность разряда батареи",
-					pt: "Potência de descarga da bateria",
-					nl: "Batterijontladingsvermogen",
-					fr: "Puissance de décharge de la batterie",
-					it: "Potenza di scarica della batteria",
-					es: "Potencia de descarga de la batería",
-					pl: "Moc rozładowania akumulatora",
-					uk: "Потужність розряду акумулятора",
-					"zh-cn": "电池放电功率",
-				},
+				name: STATE_NAMES.batDischarge,
 				type: "number",
 				role: "value.power",
 				unit: "kW",
-				read: true,
-				write: false,
-			},
-			native: {},
-		});
-
-		await this.setObjectNotExistsAsync("invTemperature", {
-			type: "state",
-			common: {
-				name: {
-					en: "Inverter Internal Temperature",
-					de: "Interne Wechselrichtertemperatur",
-					ru: "Внутренняя температура инвертора",
-					pt: "Temperatura interna do inversor",
-					nl: "Interne omvormertemperatuur",
-					fr: "Temperature interne de l'onduleur",
-					it: "Temperatura interna dell'inverter",
-					es: "Temperatura interna del inversor",
-					pl: "Wewnętrzna temperatura falownika",
-					uk: "Внутрішня температура інвертора",
-					"zh-cn": "逆变器内部温度",
-				},
-				type: "number",
-				role: "value.temperature",
-				unit: "°C",
 				read: true,
 				write: false,
 			},
@@ -321,102 +592,46 @@ class Foxesscloud extends utils.Adapter {
 
 		await this.setObjectNotExistsAsync("runningState", {
 			type: "state",
-			common: {
-				name: {
-					en: "Running State",
-					de: "Betriebszustand",
-					ru: "Рабочее состояние",
-					pt: "Estado de funcionamento",
-					nl: "Bedrijfsstatus",
-					fr: "État de fonctionnement",
-					it: "Stato operativo",
-					es: "Estado de funcionamiento",
-					pl: "Stan pracy",
-					uk: "Робочий стан",
-					"zh-cn": "运行状态",
-				},
-				type: "string",
-				role: "text",
-				read: true,
-				write: false,
-			},
+			common: { name: STATE_NAMES.runningState, type: "string", role: "text", read: true, write: false },
 			native: {},
 		});
 
-		await this.setObjectNotExistsAsync("batTemperature", {
-			type: "state",
-			common: {
-				name: {
-					en: "Battery Temperature",
-					de: "Batterietemperatur",
-					ru: "Температура батареи",
-					pt: "Temperatura da bateria",
-					nl: "Batterijtemperatuur",
-					fr: "Température de la batterie",
-					it: "Temperatura della batteria",
-					es: "Temperatura de la batería",
-					pl: "Temperatura akumulatora",
-					uk: "Температура акумулятора",
-					"zh-cn": "电池温度",
-				},
-				type: "number",
-				role: "value.temperature",
-				unit: "°C",
-				read: true,
-				write: false,
-			},
-			native: {},
-		});
+		// Create report states (day / week / month / year) calculated from lifetime deltas
+		if (this.config.enableReporting) {
+			const reportPeriodKeys = {
+				day: "reportPeriodDay",
+				week: "reportPeriodWeek",
+				month: "reportPeriodMonth",
+				year: "reportPeriodYear",
+			};
+			const reportVariables = [
+				{ id: "generation", nameKey: "reportGeneration" },
+				{ id: "feedin", nameKey: "reportFeedin" },
+				{ id: "gridConsumption", nameKey: "reportGridConsumption" },
+			];
+			const langs = ["en", "de", "ru", "pt", "nl", "fr", "it", "es", "pl", "uk", "zh-cn"];
+			for (const [period, periodKey] of Object.entries(reportPeriodKeys)) {
+				for (const variable of reportVariables) {
+					const name = {};
+					for (const lang of langs) {
+						const sep = lang === "zh-cn" ? "" : " ";
+						name[lang] = `${STATE_NAMES[periodKey][lang]}${sep}${STATE_NAMES[variable.nameKey][lang]}`;
+					}
+					await this.setObjectNotExistsAsync(`report.${period}.${variable.id}`, {
+						type: "state",
+						common: { name, type: "number", role: "value.energy", unit: "kWh", read: true, write: false },
+						native: {},
+					});
+				}
+			}
 
-		await this.setObjectNotExistsAsync("pv1Power", {
-			type: "state",
-			common: {
-				name: {
-					en: "PV String 1 Power",
-					de: "PV-String 1 Leistung",
-					ru: "Мощность PV-строки 1",
-					pt: "Potência do string PV 1",
-					nl: "PV-string 1 vermogen",
-					fr: "Puissance chaîne PV 1",
-					it: "Potenza stringa PV 1",
-					es: "Potencia cadena FV 1",
-					pl: "Moc łańcucha PV 1",
-					uk: "Потужність рядка PV 1",
-					"zh-cn": "PV 串列 1 功率",
-				},
-				type: "number",
-				role: "value.power",
-				unit: "kW",
-				read: true,
-				write: false,
-			},
-			native: {},
-		});
-
-		await this.setObjectNotExistsAsync("pv2Power", {
-			type: "state",
-			common: {
-				name: {
-					en: "PV String 2 Power",
-					de: "PV-String 2 Leistung",
-					ru: "Мощность PV-строки 2",
-					pt: "Potência do string PV 2",
-					nl: "PV-string 2 vermogen",
-					fr: "Puissance chaîne PV 2",
-					it: "Potenza stringa PV 2",
-					es: "Potencia cadena FV 2",
-					pl: "Moc łańcucha PV 2",
-					uk: "Потужність рядка PV 2",
-					"zh-cn": "PV 串列 2 功率",
-				},
-				type: "number",
-				role: "value.power",
-				unit: "kW",
-				read: true,
-				write: false,
-			},
-			native: {},
-		});
+			// Internal state to persist report baselines across restarts
+			await this.setObjectNotExistsAsync("report._baselines", {
+				type: "state",
+				common: { name: STATE_NAMES.reportBaselines, type: "string", role: "json", read: true, write: false },
+				native: {},
+			});
+		} // end if (this.config.enableReporting)
 
 		// Create JSON states for PV power statistics
 		if (this.config.enablePvPowerJSON) {
@@ -424,10 +639,7 @@ class Foxesscloud extends utils.Adapter {
 				await this.setObjectNotExistsAsync("pvPowerJSON.daily", {
 					type: "state",
 					common: {
-						name: {
-							en: "Daily PV Power Statistics (JSON)",
-							de: "Tägliche PV-Leistungsstatistiken (JSON)",
-						},
+						name: STATE_NAMES.pvPowerJsonDaily,
 						type: "string",
 						role: "json",
 						read: true,
@@ -441,10 +653,7 @@ class Foxesscloud extends utils.Adapter {
 				await this.setObjectNotExistsAsync("pvPowerJSON.weekly", {
 					type: "state",
 					common: {
-						name: {
-							en: "Weekly PV Power Statistics (JSON)",
-							de: "Wöchentliche PV-Leistungsstatistiken (JSON)",
-						},
+						name: STATE_NAMES.pvPowerJsonWeekly,
 						type: "string",
 						role: "json",
 						read: true,
@@ -458,10 +667,7 @@ class Foxesscloud extends utils.Adapter {
 				await this.setObjectNotExistsAsync("pvPowerJSON.monthly", {
 					type: "state",
 					common: {
-						name: {
-							en: "Monthly PV Power Statistics (JSON)",
-							de: "Monatliche PV-Leistungsstatistiken (JSON)",
-						},
+						name: STATE_NAMES.pvPowerJsonMonthly,
 						type: "string",
 						role: "json",
 						read: true,
@@ -475,10 +681,7 @@ class Foxesscloud extends utils.Adapter {
 			await this.setObjectNotExistsAsync("pvPowerJSON._runningState", {
 				type: "state",
 				common: {
-					name: {
-						en: "PV Power Statistics Running State (internal)",
-						de: "PV-Statistiken Laufzustand (intern)",
-					},
+					name: STATE_NAMES.pvPowerJsonRunningState,
 					type: "string",
 					role: "json",
 					read: true,
@@ -496,234 +699,234 @@ class Foxesscloud extends utils.Adapter {
 	 */
 	async getData() {
 		try {
-			const data = JSON.stringify({
+			// Build variable list: always request generation, feedin, gridConsumption for report states
+			// Plus up to 24 PV string powers (API returns those that exist)
+			const pvStringVariables = Array.from({ length: 24 }, (_, i) => `pv${i + 1}Power`);
+			const variables = [
+				"pvPower",
+				...pvStringVariables,
+				"generationPower",
+				"SoC",
+				"loadsPower",
+				"gridConsumptionPower",
+				"feedinPower",
+				"batChargePower",
+				"batDischargePower",
+				"batTemperature_1",
+				"batTemperature",
+				"invTemperation",
+				"runningState",
+				"generation",
+				"feedin",
+				"gridConsumption",
+			];
+
+			const json = await this.makeApiRequest("/op/v0/device/real/query", "POST", {
 				sn: this.config.sn,
-				variables: [
-					"pvPower",
-					"pv1Power",
-					"pv2Power",
-					"generationPower",
-					"SoC",
-					"loadsPower",
-					"gridConsumptionPower",
-					"feedinPower",
-					"batChargePower",
-					"batDischargePower",
-					"batTemperature_1",
-					"batTemperature",
-					"invTemperation",
-					"runningState",
-				],
+				variables,
 			});
 
-			const path = "/op/v0/device/real/query";
-			const milliseconds = new Date().getTime();
-
-			// WICHTIG: Die Signatur verwendet buchstäbliche Zeichen "\\r\\n", NICHT echte Zeilenumbrüche!
-			const signatureString = `${path}\\r\\n${this.config.token}\\r\\n${milliseconds}`;
-			const signature = crypto.createHash("md5").update(signatureString).digest("hex");
-
-			const options = {
-				headers: {
-					"Content-Type": "application/json",
-					token: this.config.token,
-					timestamp: milliseconds,
-					signature: signature,
-					lang: "en",
-				},
-				hostname: "www.foxesscloud.com",
-				method: "POST",
-				path: path,
-				port: 443,
-			};
-
-			const request = https.request(options, response => {
-				response.setEncoding("utf8");
-
-				let responseData = "";
-
-				response.on("data", chunk => {
-					responseData += chunk;
-				});
-
-				response.on("end", () => {
-					try {
-						if (!responseData) {
-							this.log.error("No data received from API");
-							this.setState("info.connection", false, true);
-							return;
-						}
-
-						const json = JSON.parse(responseData);
-
-						// Check if API response is valid
-						if (!json.result || !json.result[0] || !json.result[0].datas) {
-							this.log.error("Invalid API response - missing result/datas structure");
-							this.log.error(`API response: ${JSON.stringify(json, null, 2)}`);
-							if (json.errno !== undefined) {
-								this.log.error(`API error code: ${json.errno}`);
-							}
-							if (json.msg !== undefined) {
-								this.log.error(`API error message: ${json.msg}`);
-							}
-							this.setState("info.connection", false, true);
-							return;
-						}
-
-						const datas = json.result[0].datas;
-
-						// Update connection state
-						this.setState("info.connection", true, true);
-
-						// Update all states
-						// @ts-expect-error FoxESS response data is dynamically typed.
-						const getDataPointByVariable = variable =>
-							// @ts-expect-error FoxESS response data entries are dynamically typed.
-							datas.find(entry => entry && entry.variable === variable);
-
-						const pvPowerData = getDataPointByVariable("pvPower");
-						if (pvPowerData && pvPowerData.value !== undefined) {
-							const pvPower = parseFloat(pvPowerData.value.toFixed(3));
-							this.setState("pvPower", pvPower, true);
-
-							// Update PV Power JSON statistics (fire and forget)
-							this.updatePvPowerJson(pvPower).catch(err => {
-								this.log.debug(
-									`Error updating PV Power JSON: ${err instanceof Error ? err.message : String(err)}`,
-								);
-							});
-						}
-
-						const generationPowerData = getDataPointByVariable("generationPower");
-						if (generationPowerData && generationPowerData.value !== undefined) {
-							const genPower = parseFloat(generationPowerData.value.toFixed(3));
-							this.setState("generationPower", genPower, true);
-						}
-
-						const socData = getDataPointByVariable("SoC") || getDataPointByVariable("SoC_1");
-						if (socData && socData.value !== undefined) {
-							const soc = socData.value;
-							this.setState("soc", soc, true);
-						}
-
-						const loadsPowerData = getDataPointByVariable("loadsPower");
-						if (loadsPowerData && loadsPowerData.value !== undefined) {
-							const load = parseFloat(loadsPowerData.value.toFixed(3));
-							this.setState("load", load, true);
-						}
-
-						const gridConsumptionData = getDataPointByVariable("gridConsumptionPower");
-						if (gridConsumptionData && gridConsumptionData.value !== undefined) {
-							const gridCons = parseFloat(gridConsumptionData.value.toFixed(3));
-							this.setState("gridConsumption", gridCons, true);
-						}
-
-						const feedinPowerData = getDataPointByVariable("feedinPower");
-						if (feedinPowerData && feedinPowerData.value !== undefined) {
-							const feedin = parseFloat(feedinPowerData.value.toFixed(3));
-							this.setState("feedinPower", feedin, true);
-						}
-
-						const batChargePowerData = getDataPointByVariable("batChargePower");
-						if (batChargePowerData && batChargePowerData.value !== undefined) {
-							const charge = parseFloat(batChargePowerData.value.toFixed(3));
-							this.setState("batCharge", charge, true);
-						}
-
-						const batDischargePowerData = getDataPointByVariable("batDischargePower");
-						if (batDischargePowerData && batDischargePowerData.value !== undefined) {
-							const discharge = parseFloat(batDischargePowerData.value.toFixed(3));
-							this.setState("batDischarge", discharge, true);
-						}
-
-						const invTemperatureData = getDataPointByVariable("invTemperation");
-						if (invTemperatureData && invTemperatureData.value !== undefined) {
-							const invTemperature = parseFloat(invTemperatureData.value.toFixed(1));
-							this.setState("invTemperature", invTemperature, true);
-
-							if (invTemperature >= 80) {
-								if (this.lastTempWarningLevel !== 80) {
-									if (this.systemLanguage === "de") {
-										this.log.warn(
-											`Achtung, Wechselrichtertemperatur zu hoch: ${invTemperature.toFixed(1)} °C.`,
-										);
-									} else {
-										this.log.warn(
-											`Warning, inverter temperature is too high: ${invTemperature.toFixed(1)} °C.`,
-										);
-									}
-								}
-								this.lastTempWarningLevel = 80;
-							} else if (invTemperature >= 65) {
-								if (this.lastTempWarningLevel === 0) {
-									if (this.systemLanguage === "de") {
-										this.log.warn(
-											`Kritisch, bitte die Wechselrichtertemperatur im Blick behalten: ${invTemperature.toFixed(1)} °C.`,
-										);
-									} else {
-										this.log.warn(
-											`Critical, please keep an eye on inverter temperature: ${invTemperature.toFixed(1)} °C.`,
-										);
-									}
-								}
-								this.lastTempWarningLevel = 65;
-							} else if (invTemperature < 63) {
-								// Reset warning level below threshold minus hysteresis to avoid log spam.
-								this.lastTempWarningLevel = 0;
-							}
-						}
-
-						const pv1PowerData = getDataPointByVariable("pv1Power");
-						if (pv1PowerData && pv1PowerData.value !== undefined) {
-							const pv1 = parseFloat(pv1PowerData.value.toFixed(3));
-							this.setState("pv1Power", pv1, true);
-						}
-
-						const pv2PowerData = getDataPointByVariable("pv2Power");
-						if (pv2PowerData && pv2PowerData.value !== undefined) {
-							const pv2 = parseFloat(pv2PowerData.value.toFixed(3));
-							this.setState("pv2Power", pv2, true);
-						}
-
-						const batTemperatureData =
-							getDataPointByVariable("batTemperature_1") || getDataPointByVariable("batTemperature");
-						if (
-							batTemperatureData &&
-							batTemperatureData.value !== undefined &&
-							batTemperatureData.value !== null
-						) {
-							const batTemp = parseFloat(batTemperatureData.value.toFixed(1));
-							this.setState("batTemperature", batTemp, true);
-						}
-
-						const runningStateData = getDataPointByVariable("runningState");
-						if (runningStateData && runningStateData.value !== undefined) {
-							this.setState("runningState", String(runningStateData.value), true);
-						}
-
-						this.log.debug("Data successfully updated");
-					} catch (parseError) {
-						this.log.error(
-							`Error processing API response: ${parseError instanceof Error ? parseError.message : String(parseError)}`,
-						);
-						this.log.error(`Raw data: ${responseData}`);
-						this.setState("info.connection", false, true);
-					}
-				});
-
-				response.on("error", err => {
-					this.log.error(`Response error: ${err.message}`);
-					this.setState("info.connection", false, true);
-				});
-			});
-
-			request.on("error", err => {
-				this.log.error(`Request error: ${err.message}`);
+			// Check if API response is valid
+			if (!json.result || !json.result[0] || !json.result[0].datas) {
+				this.log.error("Invalid API response - missing result/datas structure");
+				this.log.error(`API response: ${JSON.stringify(json, null, 2)}`);
+				if (json.errno !== undefined) {
+					this.log.error(`API error code: ${json.errno}`);
+				}
+				if (json.msg !== undefined) {
+					this.log.error(`API error message: ${json.msg}`);
+				}
 				this.setState("info.connection", false, true);
-			});
+				return;
+			}
 
-			request.write(data);
-			request.end();
+			const datas = json.result[0].datas;
+
+			// Update connection state
+			this.setState("info.connection", true, true);
+
+			// @ts-expect-error FoxESS response data is dynamically typed.
+			const getDataPointByVariable = variable =>
+				// @ts-expect-error FoxESS response data entries are dynamically typed.
+				datas.find(entry => entry && entry.variable === variable);
+
+			const pvPowerData = getDataPointByVariable("pvPower");
+			if (pvPowerData && pvPowerData.value !== undefined) {
+				const pvPower = parseFloat(pvPowerData.value.toFixed(3));
+				this.setState("pvPower", pvPower, true);
+
+				// Update PV Power JSON statistics (fire and forget)
+				this.updatePvPowerJson(pvPower).catch(err => {
+					this.log.debug(`Error updating PV Power JSON: ${err instanceof Error ? err.message : String(err)}`);
+				});
+			}
+
+			const generationPowerData = getDataPointByVariable("generationPower");
+			if (generationPowerData && generationPowerData.value !== undefined) {
+				this.setState("generationPower", parseFloat(generationPowerData.value.toFixed(3)), true);
+			}
+
+			const socData = getDataPointByVariable("SoC") || getDataPointByVariable("SoC_1");
+			if (socData && socData.value !== undefined) {
+				this.setState("soc", socData.value, true);
+			}
+
+			const loadsPowerData = getDataPointByVariable("loadsPower");
+			if (loadsPowerData && loadsPowerData.value !== undefined) {
+				this.setState("load", parseFloat(loadsPowerData.value.toFixed(3)), true);
+			}
+
+			const gridConsumptionData = getDataPointByVariable("gridConsumptionPower");
+			if (gridConsumptionData && gridConsumptionData.value !== undefined) {
+				this.setState("gridConsumption", parseFloat(gridConsumptionData.value.toFixed(3)), true);
+			}
+
+			const feedinPowerData = getDataPointByVariable("feedinPower");
+			if (feedinPowerData && feedinPowerData.value !== undefined) {
+				this.setState("feedinPower", parseFloat(feedinPowerData.value.toFixed(3)), true);
+			}
+
+			const batChargePowerData = getDataPointByVariable("batChargePower");
+			if (batChargePowerData && batChargePowerData.value !== undefined) {
+				this.setState("batCharge", parseFloat(batChargePowerData.value.toFixed(3)), true);
+			}
+
+			const batDischargePowerData = getDataPointByVariable("batDischargePower");
+			if (batDischargePowerData && batDischargePowerData.value !== undefined) {
+				this.setState("batDischarge", parseFloat(batDischargePowerData.value.toFixed(3)), true);
+			}
+
+			// invTemperature: lazy-create state on first occurrence of non-null value
+			const invTemperatureData = getDataPointByVariable("invTemperation");
+			if (invTemperatureData && invTemperatureData.value !== undefined && invTemperatureData.value !== null) {
+				if (!this.createdPvStates.has("invTemperature")) {
+					await this.setObjectNotExistsAsync("invTemperature", {
+						type: "state",
+						common: {
+							name: STATE_NAMES.invTemperature,
+							type: "number",
+							role: "value.temperature",
+							unit: "°C",
+							read: true,
+							write: false,
+						},
+						native: {},
+					});
+					this.createdPvStates.add("invTemperature");
+				}
+				const invTemperature = parseFloat(invTemperatureData.value.toFixed(1));
+				this.setState("invTemperature", invTemperature, true);
+
+				if (invTemperature >= 80) {
+					if (this.lastTempWarningLevel !== 80) {
+						if (this.systemLanguage === "de") {
+							this.log.warn(
+								`Achtung, Wechselrichtertemperatur zu hoch: ${invTemperature.toFixed(1)} °C.`,
+							);
+						} else {
+							this.log.warn(
+								`Warning, inverter temperature is too high: ${invTemperature.toFixed(1)} °C.`,
+							);
+						}
+					}
+					this.lastTempWarningLevel = 80;
+				} else if (invTemperature >= 65) {
+					if (this.lastTempWarningLevel === 0) {
+						if (this.systemLanguage === "de") {
+							this.log.warn(
+								`Kritisch, bitte die Wechselrichtertemperatur im Blick behalten: ${invTemperature.toFixed(1)} °C.`,
+							);
+						} else {
+							this.log.warn(
+								`Critical, please keep an eye on inverter temperature: ${invTemperature.toFixed(1)} °C.`,
+							);
+						}
+					}
+					this.lastTempWarningLevel = 65;
+				} else if (invTemperature < 63) {
+					// Reset warning level below threshold minus hysteresis to avoid log spam.
+					this.lastTempWarningLevel = 0;
+				}
+			}
+
+			// Dynamic PV string powers: lazy-create state on first occurrence
+			const pvStringLangs = ["en", "de", "ru", "pt", "nl", "fr", "it", "es", "pl", "uk", "zh-cn"];
+			for (let i = 1; i <= 24; i++) {
+				const pvKey = `pv${i}Power`;
+				const pvData = getDataPointByVariable(pvKey);
+				if (pvData && pvData.value !== undefined) {
+					if (!this.createdPvStates.has(pvKey)) {
+						const nameObj = {};
+						for (const lang of pvStringLangs) {
+							const tpl = STATE_NAMES.pvStringPower[lang];
+							nameObj[lang] = tpl.replace("{n}", String(i));
+						}
+						await this.setObjectNotExistsAsync(pvKey, {
+							type: "state",
+							common: {
+								name: nameObj,
+								type: "number",
+								role: "value.power",
+								unit: "kW",
+								read: true,
+								write: false,
+							},
+							native: {},
+						});
+						this.createdPvStates.add(pvKey);
+					}
+					this.setState(pvKey, parseFloat(pvData.value.toFixed(3)), true);
+				}
+			}
+
+			// batTemperature: lazy-create state on first occurrence of non-null value
+			const batTemperatureData =
+				getDataPointByVariable("batTemperature_1") || getDataPointByVariable("batTemperature");
+			if (batTemperatureData && batTemperatureData.value !== undefined && batTemperatureData.value !== null) {
+				if (!this.createdPvStates.has("batTemperature")) {
+					await this.setObjectNotExistsAsync("batTemperature", {
+						type: "state",
+						common: {
+							name: STATE_NAMES.batTemperature,
+							type: "number",
+							role: "value.temperature",
+							unit: "°C",
+							read: true,
+							write: false,
+						},
+						native: {},
+					});
+					this.createdPvStates.add("batTemperature");
+				}
+				this.setState("batTemperature", parseFloat(batTemperatureData.value.toFixed(1)), true);
+			}
+
+			const runningStateData = getDataPointByVariable("runningState");
+			if (runningStateData && runningStateData.value !== undefined) {
+				this.setState("runningState", String(runningStateData.value), true);
+			}
+
+			// Update report states from lifetime cumulative values
+			const generationLifetimeData = getDataPointByVariable("generation");
+			const feedinLifetimeData = getDataPointByVariable("feedin");
+			const gridConsumptionLifetimeData = getDataPointByVariable("gridConsumption");
+			if (
+				this.config.enableReporting &&
+				generationLifetimeData &&
+				generationLifetimeData.value !== undefined &&
+				feedinLifetimeData &&
+				feedinLifetimeData.value !== undefined &&
+				gridConsumptionLifetimeData &&
+				gridConsumptionLifetimeData.value !== undefined
+			) {
+				await this.updateReportStates(
+					generationLifetimeData.value,
+					feedinLifetimeData.value,
+					gridConsumptionLifetimeData.value,
+				);
+			}
+
+			this.log.debug("Data successfully updated");
 		} catch (e) {
 			this.log.error(`Exception error: ${e instanceof Error ? e.message : String(e)}`);
 			if (e instanceof Error && e.stack) {
@@ -731,6 +934,101 @@ class Foxesscloud extends utils.Adapter {
 			}
 			this.setState("info.connection", false, true);
 		}
+	}
+
+	/**
+	 * Update report states (day/week/month/year) from lifetime cumulative API values.
+	 * On period rollover the current value becomes the new baseline.
+	 * Current-period totals are written on every call.
+	 *
+	 * @param {number} generation - Lifetime generation energy in kWh
+	 * @param {number} feedin - Lifetime feed-in energy in kWh
+	 * @param {number} gridConsumption - Lifetime grid consumption energy in kWh
+	 */
+	async updateReportStates(generation, feedin, gridConsumption) {
+		const now = new Date();
+		const dayKey = this.getDateKey(now);
+		const weekKey = this.getWeekKey(now);
+		const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+		const yearKey = String(now.getFullYear());
+
+		const b = this.reportBaselines;
+		let baselinesChanged = false;
+
+		const rollovers = [
+			["day", dayKey, "dayKey"],
+			["week", weekKey, "weekKey"],
+			["month", monthKey, "monthKey"],
+			["year", yearKey, "yearKey"],
+		];
+
+		// On rollover: store the current reading as baseline for the new period
+		for (const [period, currentKey, keyField] of rollovers) {
+			if (b[keyField] !== currentKey) {
+				b[period] = { generation, feedin, gridConsumption };
+				b[keyField] = currentKey;
+				baselinesChanged = true;
+			}
+		}
+		if (baselinesChanged) {
+			await this.saveReportBaselines();
+		}
+
+		// Always write current running totals every poll
+		for (const [period] of rollovers) {
+			if (b[period].generation !== null) {
+				await this.setState(
+					`report.${period}.generation`,
+					parseFloat((generation - b[period].generation).toFixed(3)),
+					true,
+				);
+				await this.setState(
+					`report.${period}.feedin`,
+					parseFloat((feedin - b[period].feedin).toFixed(3)),
+					true,
+				);
+				await this.setState(
+					`report.${period}.gridConsumption`,
+					parseFloat((gridConsumption - b[period].gridConsumption).toFixed(3)),
+					true,
+				);
+			}
+		}
+		this.log.debug("Report states updated");
+	}
+
+	/**
+	 * Restore report baselines from the persisted ioBroker state.
+	 */
+	async restoreReportBaselines() {
+		const state = await this.getStateAsync("report._baselines");
+		if (state && state.val) {
+			try {
+				const saved = JSON.parse(state.val);
+				this.reportBaselines = {
+					dayKey: saved.dayKey ?? null,
+					weekKey: saved.weekKey ?? null,
+					monthKey: saved.monthKey ?? null,
+					yearKey: saved.yearKey ?? null,
+					day: saved.day ?? { generation: null, feedin: null, gridConsumption: null },
+					week: saved.week ?? { generation: null, feedin: null, gridConsumption: null },
+					month: saved.month ?? { generation: null, feedin: null, gridConsumption: null },
+					year: saved.year ?? { generation: null, feedin: null, gridConsumption: null },
+				};
+				this.log.debug("Report baselines restored from persisted state.");
+			} catch (e) {
+				this.log.warn(`Failed to restore report baselines: ${e instanceof Error ? e.message : String(e)}`);
+			}
+		} else {
+			this.log.debug("No persisted report baselines found – starting fresh.");
+		}
+	}
+
+	/**
+	 * Persist report baselines to an ioBroker state so they survive adapter restarts.
+	 */
+	async saveReportBaselines() {
+		await this.setStateAsync("report._baselines", JSON.stringify(this.reportBaselines), true);
 	}
 
 	/**

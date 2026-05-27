@@ -7,6 +7,8 @@
     "Daily statistics": "Dagelijkse statistieken",
     "Data Collection Options": "Opties voor gegevensverzameling",
     "Enable PV Power JSON generation": "Schakel het genereren van PV Power JSON in",
+    "Enable energy reporting": "Schakel energierapportage in",
+    "Energy Reporting": "Energierapportage",
     "FoxESS Cloud API Configuration": "FoxESS Cloud API-configuratie",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Genereer JSON-tabellen voor dagelijkse (huidige week), wekelijkse (huidige maand) en maandelijkse (huidige jaar) PV-vermogensgegevens voor VIS-widgets",
     "Generate daily energy data for the current week (Monday to Sunday)": "Genereer dagelijkse energiegegevens voor de huidige week (maandag tot en met zondag)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Update-interval (seconden)",
     "Weekly start value (kWh)": "Wekelijkse startwaarde (kWh)",
     "Weekly statistics": "Wekelijkse statistieken",
+    "enable_reporting_help": "Bereken dagelijkse, wekelijkse, maandelijkse en jaarlijkse energietotalen voor opwekking, teruglevering en netverbruik. Waarden zijn afgeleid van de levensduurtellers van de FoxESS API.",
     "extended_statistics_info_text": "Totalen (dag/week/maand) worden automatisch opgeslagen na elke peiling en hersteld wanneer de adapter opnieuw opstart – het is niet nodig om de startwaarden in de configuratie handmatig te wissen of aan te passen. De startwaarden in de configuratie worden alleen toegepast bij de allereerste start van deze instantie. Voor historische gegevens over de lange termijn kunt u iobroker.history of iobroker.influxdb gebruiken.",
     "instance_info_text": "Voor een extra omvormer dient u een nieuw exemplaar aan te maken. Er kan slechts één serienummer per exemplaar worden opgegeven.",
+    "reporting_info_text": "Rapportstatussen worden aangemaakt onder rapport.dag.*, rapport.week.*, rapport.maand.* en rapport.jaar.*. De basislijnen worden na elke peiling automatisch opgeslagen en na elke herstart hersteld – geen handmatige configuratie vereist.",
     "start_value_daily_help": "Optionele startwaarde voor vandaag – alleen toegepast bij de allereerste start van deze instantie. Daarna worden de totalen automatisch opgeslagen en na elke herstart hersteld.",
     "start_value_monthly_help": "Optionele startwaarde voor de huidige maand – alleen toegepast bij de allereerste start van deze instantie. Daarna worden de totalen automatisch opgeslagen en na elke herstart hersteld.",
     "start_value_weekly_help": "Optionele startwaarde voor de huidige week – alleen toegepast bij de allereerste start van deze instantie. Daarna worden de totalen automatisch opgeslagen en na elke herstart hersteld.",
     "tab_general": "Algemeen",
+    "tab_reporting": "Rapportage",
     "tab_statistics": "Statistieken"
 }

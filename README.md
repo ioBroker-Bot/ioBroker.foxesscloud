@@ -145,6 +145,15 @@ The language of date labels (day/week/month names) automatically adapts to your 
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- (StephanBeutel) Added support for up to 24 PV strings with dynamic state creation on first occurrence
+- (StephanBeutel) Added report states for daily, weekly, monthly, and yearly energy totals derived from lifetime API values
+- (StephanBeutel) Fixed null value handling for inverter and battery temperature states
+- (StephanBeutel) Extracted reusable makeApiRequest() method for cleaner API communication
+- (StephanBeutel) Centralized all state name translations into a single STATE_NAMES constant
+- (skvarel) Fixed report states not updating during current period (values were only written at period rollover)
+- (skvarel) Made energy reporting configurable via a new Reporting tab in the admin UI
 ### 0.5.1 (2026-05-25)
 - (skvarel) Replaced process.env and process.exit usage in tools/api-test.js to fix compatibility issues reported by ioBroker repository checker (E5049, E5050)
 - (skvarel) Downgraded @types/node from ^25 to ^22 to match supported Node.js version (W0066)

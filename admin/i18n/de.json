@@ -7,6 +7,8 @@
     "Daily statistics": "Tägliche Statistiken",
     "Data Collection Options": "Datenerfassungsoptionen",
     "Enable PV Power JSON generation": "PV-Leistungs-JSON-Generierung aktivieren",
+    "Enable energy reporting": "Energie-Reporting aktivieren",
+    "Energy Reporting": "Energie-Reporting",
     "FoxESS Cloud API Configuration": "FoxESS Cloud API-Konfiguration",
     "Generate JSON tables for daily (current week), weekly (current month), and monthly (current year) PV power data for VIS widgets": "Generieren Sie JSON-Tabellen für tägliche (aktuelle Woche), wöchentliche (aktueller Monat) und monatliche (aktuelles Jahr) PV-Leistungsdaten für VIS-Widgets",
     "Generate daily energy data for the current week (Monday to Sunday)": "Tägliche Energiedaten für die aktuelle Woche generieren (Montag bis Sonntag)",
@@ -24,11 +26,14 @@
     "Update Interval (seconds)": "Aktualisierungsintervall (Sekunden)",
     "Weekly start value (kWh)": "Startwert Woche (kWh)",
     "Weekly statistics": "Woechentliche Statistiken",
+    "enable_reporting_help": "Berechnet tägliche, wöchentliche, monatliche und jährliche Energiesummen für Erzeugung, Einspeisung und Netzbezug. Die Werte werden aus den Lifetime-Zählern der FoxESS API abgeleitet.",
     "extended_statistics_info_text": "Die Zählerstände (Tag/Woche/Monat) werden nach jedem Abruf automatisch gespeichert und beim Neustart der Instanz wiederhergestellt – ein manueller Rücksetzen der Startwerte in der Config ist nicht nötig. Die Startwerte in der Config werden nur beim allerersten Start der Instanz übernommen. Für historische Langzeitauswertungen bitte iobroker.history oder iobroker.influxdb nutzen.",
     "instance_info_text": "Für weitere Wechselrichter bitte je Gerät eine eigene Instanz anlegen. Pro Instanz ist nur eine Seriennummer möglich.",
+    "reporting_info_text": "Die Report-States werden unter report.day.*, report.week.*, report.month.* und report.year.* angelegt. Die Baselines werden nach jedem Abruf automatisch gespeichert und nach jedem Neustart wiederhergestellt – keine manuelle Konfiguration erforderlich.",
     "start_value_daily_help": "Optionaler Startwert für den heutigen Tag – wird nur beim allerersten Start der Instanz übernommen. Danach werden die Zählerstände automatisch gespeichert und nach einem Neustart wiederhergestellt.",
     "start_value_monthly_help": "Optionaler Startwert für den aktuellen Monat – wird nur beim allerersten Start der Instanz übernommen. Danach werden die Zählerstände automatisch gespeichert und nach einem Neustart wiederhergestellt.",
     "start_value_weekly_help": "Optionaler Startwert für die aktuelle Woche – wird nur beim allerersten Start der Instanz übernommen. Danach werden die Zählerstände automatisch gespeichert und nach einem Neustart wiederhergestellt.",
     "tab_general": "Allgemein",
+    "tab_reporting": "Reporting",
     "tab_statistics": "Statistiken"
 }
