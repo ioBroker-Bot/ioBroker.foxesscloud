@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "foxesscloud",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "news": {
+      "0.6.1": {
+        "en": "Revised config and i18n",
+        "de": "Überarbeitetes Config und i18n",
+        "ru": "Пересмотренный конфигуратор и i18n",
+        "pt": "Configuração revista e i18n",
+        "nl": "Herziene configuratie en i18n",
+        "fr": "Config et i18n révisés",
+        "it": "Configurazione revisionata e i18n",
+        "es": "Config revisado e i18n",
+        "pl": "Zmieniony plik konfiguracyjny i i18n",
+        "uk": "Переглянуто налаштування та i18n",
+        "zh-cn": "订正配置和i18n"
+      },
       "0.6.0": {
         "en": "Added support for up to 24 PV strings with dynamic state creation on first occurrence\nAdded report states for daily, weekly, monthly, and yearly energy totals derived from lifetime API values\nFixed null value handling for inverter and battery temperature states\nExtracted reusable makeApiRequest() method for cleaner API communication\nCentralized all state name translations into a single STATE_NAMES constant\nFixed report states not updating during current period (values were only written at period rollover)\nMade energy reporting configurable via a new Reporting tab in the admin UI\n",
         "de": "Unterstützung für bis zu 24 PV-Strings mit dynamischer Zustandserstellung beim ersten Auftreten\nErgänzte Berichtszustände für tägliche, wöchentliche, monatliche und jährliche Energiesummen, die sich aus Lebenszeit-API-Werten ergeben\nFeste Nullwertbehandlung für Wechselrichter und Batterietemperaturzustände\nExtrahierte wiederverwendbare makeApiRequest() Methode für sauberere API-Kommunikation\nZentralisiert alle State Name Übersetzungen in eine einzelne STATE NAMES Konstante\nBehobene Berichtszustände, die während des laufenden Zeitraums nicht aktualisiert wurden (Werte wurden nur bei Periodenübergabe geschrieben)\nKonfigurierbar gemachte Energieberichterstattung über eine neue Registerkarte Reporting im Admin UI\n",
@@ -80,19 +93,6 @@
         "pl": "Dodano inwerter wewnętrzny punkt temperatury w °C",
         "uk": "Додано інверторну внутрішню температуру точки в °C",
         "zh-cn": "°C中增加的反转内温数据点"
-      },
-      "0.2.3": {
-        "en": "Fixed issue from adapter checker",
-        "de": "Problem behoben von Adapter Checker",
-        "ru": "Исправленная проблема от Adapter Checker",
-        "pt": "Problema fixo do verificador do adaptador",
-        "nl": "Vast probleem van adaptercontrole",
-        "fr": "Problème corrigé par l'adaptateur checker",
-        "it": "Risolto problema da adattatore checker",
-        "es": "Edición fija del adaptador",
-        "pl": "Naprawiono problem z sprawdzania adaptera",
-        "uk": "Виправлено проблему з адаптера",
-        "zh-cn": "适配器检查器的固定版本"
       }
     },
     "titleLang": {

@@ -1,4 +1,7 @@
 # Older changes
+## 0.3.1 (2026-05-19)
+- (skvarel) Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior
+
 ## 0.3.0 (2026-05-19)
 - (skvarel) Added inverter internal temperature datapoint in °C
 

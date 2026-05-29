@@ -213,7 +213,7 @@ Baselines are persisted in `report._baselines` so they survive adapter restarts.
 <!--
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.6.1 (2026-05-29)
 - (skvarel) Revised config and i18n
 
 ### 0.6.0 (2026-05-27)
@@ -236,9 +236,6 @@ Baselines are persisted in `report._baselines` so they survive adapter restarts.
 - (skvarel) Added PV string 1 and string 2 power datapoints (pv1Power, pv2Power)
 - (skvarel) Added battery temperature datapoint (batTemperature)
 - (skvarel) Added inverter running state datapoint (runningState)
-
-### 0.3.1 (2026-05-19)
-- (skvarel) Adjusted real-time API parsing to keep the typecheck green without changing runtime behavior
 
 ## Older changes
 - [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
