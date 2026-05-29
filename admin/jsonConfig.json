@@ -20,7 +20,7 @@
                     "md": 12,
                     "lg": 12,
                     "xl": 12,
-                    "help": "API-Key aus der FoxESS Cloud"
+                    "help": "API key from the FoxESS Cloud portal"
                 },
                 "sn": {
                     "type": "text",
@@ -30,7 +30,7 @@
                     "md": 12,
                     "lg": 12,
                     "xl": 12,
-                    "help": "Seriennummer vom Inverter"
+                    "help": "Serial number of the inverter"
                 },
                 "interval": {
                     "type": "number",
@@ -43,7 +43,7 @@
                     "md": 12,
                     "lg": 12,
                     "xl": 12,
-                    "help": "Aktualisierungsintervall in Sekunden (Empfohlen: 60, Minimum: 60, API-Limit: 1440 Calls/Tag)"
+                    "help": "Update interval in seconds (Recommended: 60, Minimum: 60, API limit: 1440 calls/day)"
                 },
                 "_infoBox1": {
                     "type": "staticText",

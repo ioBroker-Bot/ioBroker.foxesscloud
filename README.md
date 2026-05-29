@@ -213,6 +213,9 @@ Baselines are persisted in `report._baselines` so they survive adapter restarts.
 <!--
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (skvarel) Revised config and i18n
+
 ### 0.6.0 (2026-05-27)
 - (StephanBeutel) Added support for up to 24 PV strings with dynamic state creation on first occurrence
 - (StephanBeutel) Added report states for daily, weekly, monthly, and yearly energy totals derived from lifetime API values
@@ -221,7 +224,6 @@ Baselines are persisted in `report._baselines` so they survive adapter restarts.
 - (StephanBeutel) Centralized all state name translations into a single STATE_NAMES constant
 - (skvarel) Fixed report states not updating during current period (values were only written at period rollover)
 - (skvarel) Made energy reporting configurable via a new Reporting tab in the admin UI
--
 
 ### 0.5.1 (2026-05-25)
 - (skvarel) Replaced process.env and process.exit usage in tools/api-test.js to fix compatibility issues reported by ioBroker repository checker (E5049, E5050)
